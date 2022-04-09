@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Good morning Julian!</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-datetime></ion-datetime>
+
+
+  <ion-checkbox></ion-checkbox>
+  <ion-label for="gadget1">Geography</ion-label>
+
+
+  <ion-list>
+    <ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <!--<app-explore-container name="Tab 1 page"></app-explore-container> -->
+</ion-content>
+
+
+
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 2
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-datetime></ion-datetime>
+</ion-content> -->
