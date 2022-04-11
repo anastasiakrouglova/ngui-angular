@@ -6,8 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  public gadgetName: any;
-
+  //inputName = document.getElementById('gadgetName');
+  dis = '';
   constructor() {}
 
+  getName(theName: string) {
+    //log name on button click
+    console.log(theName);
+
+  }
 }

@@ -17,18 +17,18 @@
 
   <!-- Inputs with labels -->
   <ion-item>
-    <ion-label>Name:</ion-label>
-    <ion-input type='text' id="gadgetName"></ion-input>
+    <ion-label><strong>Name:</strong></ion-label>
+    <ion-input type='text' #gadgetName name="gadgetName"></ion-input>
   </ion-item>
   <br>
 
   <ion-item>
-    <ion-label>Module</ion-label>
+    <ion-label><strong>Module</strong></ion-label>
     <ion-toggle color="light" slot="start" name="module" checked></ion-toggle>
   </ion-item>
 
   <ion-item>
-    <ion-label>Aesthetics</ion-label>
+    <ion-label>aesthetics</ion-label>
     <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
   </ion-item><br>
 
@@ -69,7 +69,8 @@
   </ion-list>
   <br>
 
-  <ion-button (click)="confirm()" id="confirm">Confirm</ion-button>
+  <ion-button (click)="getName(gadgetName.value)">Confirm</ion-button>
+
 
     <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>
