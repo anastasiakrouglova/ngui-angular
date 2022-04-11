@@ -30,7 +30,9 @@
   <ion-item>
     <ion-label>aesthetics</ion-label>
     <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
-  </ion-item><br>
+  </ion-item>
+  <br>
+
 
   <ion-list>
     <ion-item>
@@ -70,7 +72,13 @@
   <br>
 
   <ion-button (click)="getName(gadgetName.value)">Confirm</ion-button>
+  <br>
 
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
     <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>
