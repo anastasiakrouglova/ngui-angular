@@ -33,6 +33,16 @@
   </ion-item>
   <br>
 
+  <div class="cust-icon" align="center">
+    <ion-icon name="book-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="laptop-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="fast-food-sharp" class="custom-icon"></ion-icon>
+  </div>
+  <div class="ion-padding" align="center">
+    <ion-icon name="wallet-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="headset-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="watch-sharp" class="custom-icon"></ion-icon>
+  </div>
 
   <ion-list>
     <ion-item>
@@ -71,7 +81,9 @@
   </ion-list>
   <br>
 
-  <ion-button (click)="getName(gadgetName.value)">Confirm</ion-button>
+  <div class="confbutton" align="right">
+    <ion-button (click)="getName(gadgetName.value)">Confirm</ion-button>
+  </div>
   <br>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
