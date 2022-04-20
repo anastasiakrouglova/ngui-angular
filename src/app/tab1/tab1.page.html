@@ -7,7 +7,27 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-list>
+    <!-- <ion-list-header>
+      <ion-button (click)="runGet()">Get the data</ion-button>
+    </ion-list-header> -->
+
+    <!-- you can find the list 'gadgets' in tab1.page.ts -->
+    <ion-item *ngFor="let gadget of gadgets">
+      <ion-label>
+        <h1>{{gadget.name}}</h1>
+        <h5>{{gadget.in_backpack}}</h5>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+
+
+
+
+
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Good morning Julian!</ion-title>
     </ion-toolbar>
@@ -17,7 +37,7 @@
     <ion-datetime></ion-datetime>
   </ion-item>
   <br>
-  
+
   <div class="static">
     <H3>STATIC</H3>
     <ion-item>
@@ -43,21 +63,21 @@
       <ion-label>Gym Bag</ion-label>
       <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
     </ion-item>
-    
+
     <ion-item>
       <ion-label>Food</ion-label>
       <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
     </ion-item>
   </div>
   <br>
-  
+
 
   <ion-list>
     <ion-item *ngFor="let entry of form">
       <ion-label>{{entry.val}}</ion-label>
       <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
   <!--<app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>
 
