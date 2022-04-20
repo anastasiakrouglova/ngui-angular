@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Home
+      <h2>Home</h2>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,11 +13,44 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-datetime></ion-datetime>
+  <ion-item class="the_date">
+    <ion-datetime></ion-datetime>
+  </ion-item>
+  <br>
+  
+  <div class="static">
+    <H3>STATIC</H3>
+    <ion-item>
+      <ion-label>Math Book</ion-label>
+      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+    </ion-item>
 
-  <ion-checkbox></ion-checkbox>
-  <ion-label for="gadget1">Geography</ion-label>
+    <ion-item>
+      <ion-label>English Book</ion-label>
+      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+    </ion-item>
 
+    <ion-item>
+      <ion-label>Computer Book</ion-label>
+      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+    </ion-item>
+  </div>
+  <br>
+
+  <div class="dynamic">
+    <H3>DYNAMIC</H3>
+    <ion-item>
+      <ion-label>Gym Bag</ion-label>
+      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Food</ion-label>
+      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+    </ion-item>
+  </div>
+  <br>
+  
 
   <ion-list>
     <ion-item *ngFor="let entry of form">
