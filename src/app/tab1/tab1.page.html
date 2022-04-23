@@ -1,96 +1,43 @@
-<ion-header [translucent]="true">
+<ion-header collapse="condense">
   <ion-toolbar>
-    <ion-title>
-      <h2>Home</h2>
-    </ion-title>
+    <ion-title size="large">Good morning Julian!</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <!-- <ion-list-header>
-      <ion-button (click)="runGet()">Get the data</ion-button>
-    </ion-list-header> -->
-
-    <!-- you can find the list 'gadgets' in tab1.page.ts -->
-    <ion-item *ngFor="let gadget of gadgets">
-      <ion-label>
-        <h1>{{gadget.name}}</h1>
-        <h5>{{gadget.in_backpack}}</h5>
-      </ion-label>
-    </ion-item>
-
-  </ion-list>
-
-
-
-
-
-
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Good morning Julian!</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-item class="the_date">
     <ion-datetime></ion-datetime>
   </ion-item>
-  <br>
 
-  <div class="static">
-    <H3>STATIC</H3>
-    <ion-item>
-      <ion-label>Math Book</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
-    </ion-item>
+  <h2>Static objects</h2>
+  <ion-list class="static">
+    <!-- LIST OF STATIC OBJECTS you can find the list 'gadgets' in tab1.page.ts -->
+    <div *ngFor="let gadget of gadgets">
+      <ion-item *ngIf="static_gadgets_listID.includes(gadget.id)">
+          <ion-label>{{gadget.name}}</ion-label>
+          <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
+          <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
+      </ion-item>
+    </div>
+  </ion-list>
 
-    <ion-item>
-      <ion-label>English Book</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Computer Book</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
-    </ion-item>
-  </div>
-  <br>
-
-  <div class="dynamic">
-    <H3>DYNAMIC</H3>
-    <ion-item>
-      <ion-label>Gym Bag</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Food</ion-label>
-      <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
-    </ion-item>
-  </div>
-  <br>
-
-
-  <ion-list>
-    <ion-item *ngFor="let entry of form">
-      <ion-label>{{entry.val}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
-    </ion-item>
-  </ion-list> -->
-  <!--<app-explore-container name="Tab 1 page"></app-explore-container> -->
+  <h2>Dynamic objects</h2>
+  <ion-list class="dynamic">
+    <!-- LIST OF DYNAMIC OBJECTS you can find the list 'gadgets' in tab1.page.ts -->
+    <!-- are displayed if same current day -->
+    <div *ngFor="let gadget of gadgets">
+      <div *ngFor="let dyn_need of dyn_gadgets">
+        <div *ngIf="gadget.id == dyn_need.gadget_id">
+          <div *ngIf="dyn_need.day_of_week == curr_day">
+            <ion-item>
+              <ion-label>{{gadget.name}}</ion-label>
+              <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
+              <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
+            </ion-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-list>
 </ion-content>
-
-
-
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-datetime></ion-datetime>
-</ion-content> -->
