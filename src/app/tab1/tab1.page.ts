@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MbscEventcalendarOptions, MbscCalendarEvent } from '@mobiscroll/angular';
+import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent } from '@mobiscroll/angular';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  styleUrls: ['tab1.page.scss'],
+  providers: [Notifications]
 })
 
 
@@ -20,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 
 export class Tab1Page implements OnInit {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private notify: Notifications) {
 
   }
 
@@ -54,7 +55,33 @@ export class Tab1Page implements OnInit {
             }
         }
     }
-};
+  };
+
+  getGadget(id: number): any {
+    switch (id) {
+        case 1:
+            return {
+                img: './assets/gym.svg',
+                name: 'French book'
+            };
+        case 2:
+            return {
+                img: './assets/math.svg',
+                name: 'Exercise book math'
+            };
+        case 3:
+            return {
+                img: './assets/water.svg',
+                name: 'Bottle of water'
+            };
+    }
+  }
+
+  add(ev: any, data: any): void {
+    this.notify.toast({
+        message: data.title + ' clicked'
+    });
+}
 
   gadgets: any // list that will save and print the data
 
@@ -70,7 +97,7 @@ export class Tab1Page implements OnInit {
 
 
   ngOnInit() {
-    this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/events/?vers=5', 'callback').subscribe((resp) => {
+    this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/custom-events/', 'callback').subscribe((resp: any) => {
       this.myEvents = resp;
     });
 

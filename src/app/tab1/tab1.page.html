@@ -14,21 +14,27 @@
   <ion-progress-bar class="progress-bar" color="primary" value="0.5"></ion-progress-bar> -->
 
 
-  <ng-template #customHeaderTemplate>
+  <!-- <ng-template #customHeaderTemplate>
     <div>Resources</div>
-  </ng-template>
-
-  <ng-template #customDayTemplate>
-    <div>{{formatDate('DDDD', day.date)}}</div>
-    <p>{{formatDate('MMMM DD', day.date)}}</p>
- </ng-template>
+  </ng-template> -->
 
   <!-- https://docs.mobiscroll.com/angular/eventcalendar -->
 
-  <mbsc-eventcalendar  [data]="myEvents" [options]="eventSettings"></mbsc-eventcalendar>
+  <!-- <mbsc-eventcalendar  [data]="myEvents" [options]="eventSettings"></mbsc-eventcalendar> -->
+  <mbsc-eventcalendar [eventContentTemplate]="contentTemplate" [data]="myEvents" [options]="eventSettings" class="md-custom-event"></mbsc-eventcalendar>
+
+  <ng-template #contentTemplate let-data>
+      <!-- <div>{{data.title}}</div> -->
+      <div class="md-custom-event-cont">
+          <img class="md-custom-event-img" [src]="getGadget(data.original.participant).img" />
+          <div class="mbsc-custom-event-name">{{getGadget(data.original.participant).name}}</div>
+          <!-- <mbsc-button class="md-custom-event-btn" color="secondary" data-variant="outline" (click)="add($event, data.original)">gadget</mbsc-button> -->
+      </div>
+  </ng-template>
 
 
-  <ion-list class="static">
+  <!-- USE THIS AS INSPIRATION TO GET DATA FROM SERVER -->
+  <!-- <ion-list class="dynamic">
     <div *ngFor="let gadget of gadgets">
       <div *ngFor="let dyn_need of dyn_gadgets">
         <div *ngIf="gadget.id == dyn_need.gadget_id">
@@ -38,20 +44,11 @@
             <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
           </ion-item>
         </div>
-      <!-- <ion-item *ngIf="static_gadgets_listID.includes(gadget.id)">
-
-          <p>{{gadget.name}}</p>
-          <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
-          <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
-      </ion-item> -->
       </div>
     </div>
   </ion-list>
 
-  <!-- <h2>Static objects (weekly based)</h2> -->
-  <ion-list class="dynamic">
-    <!-- LIST OF STATIC OBJECTS you can find the list 'gadgets' in tab1.page.ts -->
-    <!-- are displayed if same current day -->
+  <ion-list class="static">
     <div *ngFor="let gadget of gadgets">
       <div *ngFor="let stat_need of stat_gadgets">
         <div *ngIf="gadget.id == stat_need.gadget_id">
@@ -65,6 +62,9 @@
         </div>
       </div>
     </div>
-  </ion-list>
+  </ion-list> -->
+
+
+
 </div>
 </ion-content>
