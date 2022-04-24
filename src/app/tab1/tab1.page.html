@@ -6,32 +6,46 @@
 
 
 <ion-content [fullscreen]="true">
+
   <ion-item class="the_date">
     <ion-datetime></ion-datetime>
   </ion-item>
+  <ion-text>6/14 gadgets in backpack</ion-text>
+  <ion-progress-bar class="progress-bar" color="primary" value="0.5"></ion-progress-bar>
 
-  <h2>Static objects</h2>
+  <p>{{getDayOfWeek(2)}}</p>
+
   <ion-list class="static">
-    <!-- LIST OF STATIC OBJECTS you can find the list 'gadgets' in tab1.page.ts -->
-    <div *ngFor="let gadget of gadgets">
-      <ion-item *ngIf="static_gadgets_listID.includes(gadget.id)">
-          <ion-label>{{gadget.name}}</ion-label>
-          <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
-          <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
-      </ion-item>
-    </div>
-  </ion-list>
-
-  <h2>Dynamic objects</h2>
-  <ion-list class="dynamic">
-    <!-- LIST OF DYNAMIC OBJECTS you can find the list 'gadgets' in tab1.page.ts -->
-    <!-- are displayed if same current day -->
     <div *ngFor="let gadget of gadgets">
       <div *ngFor="let dyn_need of dyn_gadgets">
         <div *ngIf="gadget.id == dyn_need.gadget_id">
-          <div *ngIf="dyn_need.day_of_week == curr_day">
+          <ion-item>
+            <ion-label>{{gadget.name}} - (Single)  </ion-label>
+            <p>{{dyn_need.needed_on}}</p>
+            <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
+            <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
+          </ion-item>
+        </div>
+      <!-- <ion-item *ngIf="static_gadgets_listID.includes(gadget.id)">
+
+          <p>{{gadget.name}}</p>
+          <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
+          <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
+      </ion-item> -->
+      </div>
+    </div>
+  </ion-list>
+
+  <!-- <h2>Static objects (weekly based)</h2> -->
+  <ion-list class="dynamic">
+    <!-- LIST OF STATIC OBJECTS you can find the list 'gadgets' in tab1.page.ts -->
+    <!-- are displayed if same current day -->
+    <div *ngFor="let gadget of gadgets">
+      <div *ngFor="let stat_need of stat_gadgets">
+        <div *ngIf="gadget.id == stat_need.gadget_id">
+          <div *ngIf="stat_need.day_of_week == curr_day">
             <ion-item>
-              <ion-label>{{gadget.name}}</ion-label>
+              <ion-label>{{gadget.name}} (Periodic/static)</ion-label>
               <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
               <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
             </ion-item>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-tab1',
@@ -20,10 +21,10 @@ export class Tab1Page implements OnInit {
   }
 
   gadgets: any // list that will save and print the data
-  static_gadgets_listID: any  // array of id's, not complete static gadgets
-  dynamic_gadgets_listID: any
+  //static_gadgets_listID: any  // array of id's, not complete static gadgets
+  //dynamic_gadgets_listID: any
 
-
+  stat_gadgets: any
   dyn_gadgets: any
   curr_day: any
 
@@ -55,8 +56,9 @@ export class Tab1Page implements OnInit {
     this.http.get('http://backpack.cvdeede.be/api/static_needs')
       .subscribe(
         source => {
-          const stat_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
-          this.static_gadgets_listID = stat_data
+          //const stat_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
+          //this.static_gadgets_listID = stat_data
+          this.stat_gadgets = source
         }
     )
   }
@@ -66,11 +68,18 @@ export class Tab1Page implements OnInit {
     .subscribe(
       source => {
         const dyn_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
-        this.dynamic_gadgets_listID = dyn_data
-
+        //this.dynamic_gadgets_listID = dyn_data
         this.dyn_gadgets = source
       }
-  )
+    )
+  }
+
+  getDayOfWeek(date) {
+    const today = new Date();
+
+    //const todayFormated = this.datepipe.transform(today, 'w')
+
+    return today
   }
 
 

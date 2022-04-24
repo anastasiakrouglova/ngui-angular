@@ -6,6 +6,20 @@ ion-datetime{
   --backgorund: white;
 }
 
+
+ion-progress-bar{
+ width: 80%;
+ margin: 0 auto;
+ margin-top: 2rem;
+ padding: 0.3rem;
+ color: #5967E5;
+}
+
+
+ion-title{
+  margin-bottom: 2rem;
+}
+
 // .static{
 //   border: 2px dashed lightslategray;
 // }
