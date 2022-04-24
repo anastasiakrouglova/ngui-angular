@@ -9,34 +9,61 @@ import { DatePipe } from '@angular/common'
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
 
-  // changed(evt) {
-  //   this.isChecked = evt.target.checked;
-  //   alert(evt.target.checked)
-  // }
+
+export class Tab1Page implements OnInit {
 
   constructor(private http: HttpClient) {
 
   }
 
   gadgets: any // list that will save and print the data
-  //static_gadgets_listID: any  // array of id's, not complete static gadgets
-  //dynamic_gadgets_listID: any
 
   stat_gadgets: any
   dyn_gadgets: any
   curr_day: any
 
-
+  weekDays_LIST: any
 
   getDate() {
     var d = new Date();
     var n = d.getDay();
-
-
     this.curr_day = n
   }
+
+
+  getWeek() {
+    this.http.get('http://backpack.cvdeede.be/api/static_needs')
+      .subscribe(
+        source => {
+          const weekDay = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
+          this.weekDays_LIST = weekDay
+          //this.stat_gadgets = source
+        }
+    )
+  }
+
+  // getWeekdayGadget(day) {
+  //   var d = new Date();
+  //   var n = d.getDay();
+
+  //   this.curr_day = n
+  // }
+
+  // getWeekdayGadget() {
+  //   this.http.get('http://backpack.cvdeede.be/api/static_needs')
+  //     .subscribe(
+  //       source => {
+  //         //const stat_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
+  //         //this.static_gadgets_listID = stat_data
+  //         this.stat_gadgets = source
+
+
+  //         var n = d.getDay();
+  //       }
+  //   )
+  // }
+
 
   ngOnInit() {
     // get all gadgets
@@ -48,6 +75,7 @@ export class Tab1Page implements OnInit {
       }
     )
     this.getDate();
+
     this.getStaticGadgets();
     this.getDynamicGadgets();
   }
@@ -67,19 +95,11 @@ export class Tab1Page implements OnInit {
     this.http.get('http://backpack.cvdeede.be/api/dynamic_needs')
     .subscribe(
       source => {
-        const dyn_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
+        //const dyn_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
         //this.dynamic_gadgets_listID = dyn_data
         this.dyn_gadgets = source
       }
     )
-  }
-
-  getDayOfWeek(date) {
-    const today = new Date();
-
-    //const todayFormated = this.datepipe.transform(today, 'w')
-
-    return today
   }
 
 

@@ -13,15 +13,16 @@
   <ion-text>6/14 gadgets in backpack</ion-text>
   <ion-progress-bar class="progress-bar" color="primary" value="0.5"></ion-progress-bar>
 
-  <p>{{getDayOfWeek(2)}}</p>
+  <!-- <p>{{getDayOfWeek(5)}}</p> -->
+  <!-- {{test | date}} -->
+
 
   <ion-list class="static">
     <div *ngFor="let gadget of gadgets">
       <div *ngFor="let dyn_need of dyn_gadgets">
         <div *ngIf="gadget.id == dyn_need.gadget_id">
-          <ion-item>
-            <ion-label>{{gadget.name}} - (Single)  </ion-label>
-            <p>{{dyn_need.needed_on}}</p>
+          <ion-item *ngIf="(dyn_need.needed_on | date:'c') == curr_day">
+            <ion-label>{{gadget.name}} - (Single) </ion-label>
             <ion-checkbox *ngIf="gadget.in_backpack == 0" color="primary" unchecked slot="start"></ion-checkbox>
             <ion-checkbox *ngIf="gadget.in_backpack == 1" color="primary" checked slot="start"></ion-checkbox>
           </ion-item>
