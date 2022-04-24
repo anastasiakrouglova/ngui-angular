@@ -24,3 +24,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+$mbsc-ios-accent: #5967E5;
+$mbsc-material-accent: #5967E5;
+$mbsc-mobiscroll-accent: #5967E5;
+$mbsc-ios-calendar-background: #fff;
+$mbsc-ios-calendar-border: #fff;
+
+@import "~@mobiscroll/angular/dist/css/mobiscroll.scss";

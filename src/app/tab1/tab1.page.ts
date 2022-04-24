@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MbscEventcalendarOptions, MbscCalendarEvent } from '@mobiscroll/angular';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { DatePipe } from '@angular/common'
+import { MbscModule } from '@mobiscroll/angular';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-tab1',
@@ -11,19 +15,52 @@ import { DatePipe } from '@angular/common'
 })
 
 
+
+
+
 export class Tab1Page implements OnInit {
 
   constructor(private http: HttpClient) {
 
   }
 
+  myEvents: MbscCalendarEvent[] = [];
+
+
+  eventSettings: MbscEventcalendarOptions = {
+    theme: 'ios',
+    themeVariant: 'light',
+    clickToCreate: false,
+    dragToCreate: false,
+    dragToMove: false,
+    dragToResize: false,
+    responsive: {
+        xsmall: {
+            view: {
+                calendar: {
+                    type: 'week',
+                },
+                agenda: {
+                    type: 'day'
+                }
+            }
+        },
+        custom: { // Custom breakpoint
+            breakpoint: 600,
+            view: {
+                calendar: {
+                    labels: true
+                }
+            }
+        }
+    }
+};
+
   gadgets: any // list that will save and print the data
 
   stat_gadgets: any
   dyn_gadgets: any
   curr_day: any
-
-  weekDays_LIST: any
 
   getDate() {
     var d = new Date();
@@ -32,40 +69,11 @@ export class Tab1Page implements OnInit {
   }
 
 
-  getWeek() {
-    this.http.get('http://backpack.cvdeede.be/api/static_needs')
-      .subscribe(
-        source => {
-          const weekDay = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
-          this.weekDays_LIST = weekDay
-          //this.stat_gadgets = source
-        }
-    )
-  }
-
-  // getWeekdayGadget(day) {
-  //   var d = new Date();
-  //   var n = d.getDay();
-
-  //   this.curr_day = n
-  // }
-
-  // getWeekdayGadget() {
-  //   this.http.get('http://backpack.cvdeede.be/api/static_needs')
-  //     .subscribe(
-  //       source => {
-  //         //const stat_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
-  //         //this.static_gadgets_listID = stat_data
-  //         this.stat_gadgets = source
-
-
-  //         var n = d.getDay();
-  //       }
-  //   )
-  // }
-
-
   ngOnInit() {
+    this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/events/?vers=5', 'callback').subscribe((resp) => {
+      this.myEvents = resp;
+    });
+
     // get all gadgets
     this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
       data => {
@@ -101,43 +109,4 @@ export class Tab1Page implements OnInit {
       }
     )
   }
-
-
-
-
-
-
-
-
-  // checkboxClick(e) {
-  //   //var statement = true;
-  //   //console.log(e.detail.checked)
-
-  //   if(e.detail.checked == true){
-  //     //1 of 0, afh van if statement = als al gechecked of niet
-  //     //console.log("patch it")
-  //     //this.http.patch('http://backpack.cvdeede.be/api/gadgets/2', updated_gadget)
-
-  //     this.http.patch("http://backpack.cvdeede.be/api/gadgets/2",
-  //     {
-  //       "in_backpack": 0,
-  //     })
-  //     .subscribe(
-  //         (val) => {
-  //             console.log("PATCH call successful value returned in body",
-  //                         val);
-  //         },
-  //         response => {
-  //             console.log("PATCH call in error", response);
-  //         },
-  //         () => {
-  //             console.log("The PATCH observable is now completed.");
-  //         });
-  // }
-  //   //  console.log(updated_gadget)
-  //  // }
-  // }
-
-
-
 }

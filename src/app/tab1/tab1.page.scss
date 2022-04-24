@@ -1,3 +1,5 @@
+
+
 ion-datetime{
   // margin-top: 50%;
   margin-left: auto;
@@ -15,19 +17,17 @@ ion-progress-bar{
  color: #5967E5;
 }
 
+.content-container{
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 
 ion-title{
   margin-bottom: 2rem;
 }
 
-// .static{
-//   border: 2px dashed lightslategray;
-// }
-
-// .dynamic{
-//   margin-bottom: 10%;
-// }
-
-// ion-content{
-//   --background: #EFF1FA
-// }
+.mbsc-timeline-resource-col {
+  color: red;
+}
