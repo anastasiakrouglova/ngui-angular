@@ -106,7 +106,6 @@ export class Tab1Page implements OnInit {
       data => {
         // put all the data we get, to the list gadgets
         this.gadgets = data;
-        const id_list = JSON.parse(JSON.stringify(data)).map(s => s.id)
       }
     )
     this.getDate();
