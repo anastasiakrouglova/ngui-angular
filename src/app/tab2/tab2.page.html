@@ -17,11 +17,10 @@
   <!-- <p *ngIf="gadgets.length === 0">No Record Found</p>   -->
   <ion-list>
     <div *ngFor="let gadget of gadgets">
-      <ion-button> {{gadget.name}} </ion-button>
+      <ion-button routerLink="/tab2details"> {{gadget.name}} </ion-button>
     </div>
   </ion-list>
 
   <ion-button expand="full" id="edit">Edit Gadgetlist</ion-button>
 
 </ion-content>
-
