@@ -10,25 +10,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title size="large">Add Gadget</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-  <br>
- 
+
+  <div>
+    <h3>{{ id }}</h3>
+  </div>
 
   <!-- Inputs with labels -->
-  <ion-item>
+  <!-- <ion-item>
     <ion-label><strong>Name:</strong></ion-label>
     <ion-input type='text' #gadgetName name="gadgetName"></ion-input>
-  </ion-item>
-  <br>
+  </ion-item> -->
 
-  <ion-item>
+
+
+  <!-- <ion-item>
     <ion-label><strong>Module</strong></ion-label>
     <ion-toggle color="light" slot="start" name="module" checked></ion-toggle>
   </ion-item>
@@ -36,10 +31,10 @@
   <ion-item>
     <ion-label>aesthetics</ion-label>
     <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
-  </ion-item>
-  <br>
+  </ion-item> -->
 
-  <div class="cust-icon" align="center">
+
+  <!-- <div class="cust-icon" align="center">
     <ion-icon name="book-sharp" class="custom-icon"></ion-icon>
     <ion-icon name="laptop-sharp" class="custom-icon"></ion-icon>
     <ion-icon name="fast-food-sharp" class="custom-icon"></ion-icon>
@@ -48,7 +43,7 @@
     <ion-icon name="wallet-sharp" class="custom-icon"></ion-icon>
     <ion-icon name="headset-sharp" class="custom-icon"></ion-icon>
     <ion-icon name="watch-sharp" class="custom-icon"></ion-icon>
-  </div>
+  </div> -->
 
   <ion-list>
     <ion-item>
@@ -85,7 +80,7 @@
       </ion-select>
     </ion-item>
   </ion-list>
-  
+
   <br>
 
   <div class="confbutton" align="right">
@@ -93,11 +88,11 @@
   </div>
   <br>
 
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <!-- <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab> -->
 
-    
+
 </ion-content>

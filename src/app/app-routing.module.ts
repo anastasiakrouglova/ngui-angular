@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+// import { DataResolverService } from './resolver/data-resolver.service';
 
 const routes: Routes = [
   {
@@ -11,7 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./tab2details/tab2details.module').then( m => m.Tab2detailsPageModule)
   },
   {
-    path: 'tab2details/:id',
+    path: 'tabs/edit/:id',
+    // resolve: {
+    //   special: DataResolverService
+    // },
     loadChildren: () => import('./tab2details/tab2details.module').then( m => m.Tab2detailsPageModule)
   }
 

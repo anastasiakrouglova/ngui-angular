@@ -26,7 +26,7 @@ export class Tab2Page {
 
   openDetailPage(id) {
     this.getGadgetById(id);
-    this.router.navigateByUrl('/tab2details/'+id)
+    this.router.navigateByUrl('tabs/edit/'+id)
   }
 
 

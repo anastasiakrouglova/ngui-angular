@@ -17,7 +17,6 @@
   <!-- <p *ngIf="gadgets.length === 0">No Record Found</p>   -->
   <ion-list>
     <div *ngFor="let gadget of gadgets">
-      <!-- <ion-button routerLink="/tabs/tab2/{{gadget.id}}"> {{gadget.name}} </ion-button> -->
       <ion-button (click)="openDetailPage(gadget.id)">{{gadget.name}} </ion-button>
     </div>
   </ion-list>
