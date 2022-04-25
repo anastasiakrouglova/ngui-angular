@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+// import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-tab2',
@@ -6,13 +9,28 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  //inputName = document.getElementById('gadgetName');
-  dis = '';
-  constructor() {}
 
-  getName(theName: string) {
-    //log name on button click
-    console.log(theName);
+  gadgets: any;
 
+  constructor(
+    private http: HttpClient,
+    // private loadCtrl: LoadingController
+    ) {}
+
+
+  ionViewDidEnter() {
+    this.fetchGadgets();
   }
+
+  fetchGadgets() {
+
+    // this.loadCtrl.create({ message: 'Fetching...' }).then(l => l.present());
+
+    this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
+      data => {
+      this.gadgets = data;
+      // this.loadCtrl.dismiss();
+    });
+  }
+
 }

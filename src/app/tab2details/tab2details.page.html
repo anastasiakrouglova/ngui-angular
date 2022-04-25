@@ -1,0 +1,97 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <h2>Add Gadget</h2>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Add Gadget</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <br>
+  <!-- <ion-button color="secondary">Second</ion-button> -->
+
+  <!-- Inputs with labels -->
+  <ion-item>
+    <ion-label><strong>Name:</strong></ion-label>
+    <ion-input type='text' #gadgetName name="gadgetName"></ion-input>
+  </ion-item>
+  <br>
+
+  <ion-item>
+    <ion-label><strong>Module</strong></ion-label>
+    <ion-toggle color="light" slot="start" name="module" checked></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>aesthetics</ion-label>
+    <ion-checkbox color="primary" checked slot="start"></ion-checkbox>
+  </ion-item>
+  <br>
+
+  <div class="cust-icon" align="center">
+    <ion-icon name="book-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="laptop-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="fast-food-sharp" class="custom-icon"></ion-icon>
+  </div>
+  <div class="ion-padding" align="center">
+    <ion-icon name="wallet-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="headset-sharp" class="custom-icon"></ion-icon>
+    <ion-icon name="watch-sharp" class="custom-icon"></ion-icon>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Frequency</ion-label>
+      <ion-select value="frequency">
+        <ion-select-option value="daily">Every day</ion-select-option>
+        <ion-select-option value="weekly">Every week</ion-select-option>
+        <ion-select-option value="biweekly">Every 2 weeks 7</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>From</ion-label>
+      <ion-select value="from">
+        <ion-select-option value="today">Today</ion-select-option>
+        <ion-select-option value="tomorrow">Tomorrow</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>To</ion-label>
+      <ion-select value="to">
+        <ion-select-option value="to1">22 April 2022</ion-select-option>
+        <ion-select-option value="to2">30 April 2022</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Reminder</ion-label>
+      <ion-select value="reminder">
+        <ion-select-option value="remind1">5 min before</ion-select-option>
+        <ion-select-option value="remind2">15 min before</ion-select-option>
+        <ion-select-option value="remind3">1 hour before</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  
+  <br>
+
+  <div class="confbutton" align="right">
+    <ion-button (click)="getName(gadgetName.value)">Confirm</ion-button>
+  </div>
+  <br>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+    
+</ion-content>
