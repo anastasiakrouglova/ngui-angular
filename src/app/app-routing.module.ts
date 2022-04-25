@@ -5,8 +5,13 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  },  {
+  },
+  {
     path: 'tab2details',
+    loadChildren: () => import('./tab2details/tab2details.module').then( m => m.Tab2detailsPageModule)
+  },
+  {
+    path: 'tab2details/:id',
     loadChildren: () => import('./tab2details/tab2details.module').then( m => m.Tab2detailsPageModule)
   }
 

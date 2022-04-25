@@ -109,7 +109,6 @@ export class Tab1Page implements OnInit {
       }
     )
     this.getDate();
-
     this.getStaticGadgets();
     this.getDynamicGadgets();
   }
