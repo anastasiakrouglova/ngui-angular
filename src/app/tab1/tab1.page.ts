@@ -6,6 +6,7 @@ import { map } from "rxjs/operators";
 import { DatePipe } from '@angular/common'
 import { MbscModule } from '@mobiscroll/angular';
 import { FormsModule } from '@angular/forms';
+import { Data } from '@angular/router';
 
 
 @Component({
@@ -22,29 +23,80 @@ export class Tab1Page implements OnInit {
 
   }
 
-  today: Date = new Date();
+  //today: Date = new Date();
 
   myEvents: MbscCalendarEvent[];
+  curr_gadget: any
+
+  getDay(id: number): any {
+    switch (id) {
+        case 1:
+            return 'MO';
+        case 2:
+            return 'TU';
+        case 3:
+            return 'WE';
+        case 4:
+            return 'TH';
+        case 5:
+            return 'FR';
+        case 6:
+            return 'SA';
+        case 7:
+            return 'SU';
+    }
+  }
 
   onPageLoading(event: MbscPageLoadingEvent) {
-    const fromDay = event.firstDay.toISOString();
-    console.log(fromDay);
-    console.log("emlqksjdfqm");
-    const toDay = event.lastDay.toISOString();
+    const monday = 'MO'
 
-    this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe((data: any) => {
+    // display all dynamic gadgets
+    this.http.get('http://backpack.cvdeede.be/api/gadgets?show_needs=1').subscribe((data: any) => {
       const events = [];
+
+      // static needs are indicated as red
       for (let i = 0; i < data.length; i++) {
-        events.push({
-          start: "2022-05-06T07:00:00.000Z",
-          end: "2022-05-08T16:00:00.000Z",
-          title: data[i].name,
-          color: data[i].color,
-          participant: 1
-        });
+        for (let j = 0; j < data[i].static_needs.length; j++) {
+          events.push({
+            start: data[i].static_needs[j].needed_on,
+            allDay: true,
+            title: data[i].name,
+            color: "#ff6d42",
+            icon: 1
+          })
+        }
+        // Dynamic needs are blue
+        for (let k = 0; k < data[i].dynamic_needs.length; k++) {
+          events.push({
+            start: "2022-05-06T07:00:00.000Z",
+            allDay: true,
+            title: data[i].name,
+            icon: 1,
+            recurring: 'FREQ=WEEKLY;UNTIL=2022-07-01;BYDAY='+monday+',TU, FR, SA'
+          });
+        }
       }
       this.myEvents = events;
     });
+
+
+    // // display all static gadgets
+    // this.http.get('http://backpack.cvdeede.be/api/static_needs').subscribe((data: any) => {
+    //   const events = [];
+    //   //console.log(this.getDay(this.stat_gadgets[1].day_of_week))
+
+    //   for (let i = 0; i < data.length; i++) {
+    //     events.push({
+    //       start: '08:30',
+    //       allDay: true,
+    //       title: data[i].name,
+    //       //color: data[i].color,
+    //       participant: 1,
+    //       recurring: 'FREQ=WEEKLY;UNTIL=2022-06-01;BYDAY='+monday+',TU, FR, SA'
+    //     });
+    //   }
+    //   this.myEvents = events;
+    // });
 
   }
 
@@ -59,6 +111,11 @@ export class Tab1Page implements OnInit {
   //   end: new Date(2020, 2, 20, 13, 0),
   //   title: 'My Second Event'
   // }];
+
+  getGadgetById(id: Number): any {
+    return this.http.get('http://backpack.cvdeede.be/api/gadgets/' + id).forEach(res => console.log(res))
+      //.parse(JSON.stringify(source)).map(res => res.json());
+  }
 
 
   eventSettings: MbscEventcalendarOptions = {
@@ -127,17 +184,6 @@ export class Tab1Page implements OnInit {
     var n = d.getDay();
     this.curr_day = n
   }
-
-  customApi: any =
-  [
-    {
-      start: "2022-05-06T07:00:00.000Z",
-      end: "2022-05-08T16:00:00.000Z",
-      title: "Business of Software Conference",
-      color: "#ff6d42",
-      image: 1
-    }
-  ]
 
 
   ngOnInit() {
