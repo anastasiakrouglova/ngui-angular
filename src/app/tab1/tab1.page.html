@@ -21,7 +21,7 @@
   <!-- https://docs.mobiscroll.com/angular/eventcalendar -->
 
   <!-- <mbsc-eventcalendar  [data]="myEvents" [options]="eventSettings"></mbsc-eventcalendar> -->
-  <mbsc-eventcalendar [eventContentTemplate]="contentTemplate" [data]="myEvents" [options]="eventSettings" class="md-custom-event"></mbsc-eventcalendar>
+  <mbsc-eventcalendar [eventContentTemplate]="contentTemplate" [data]="myEvents" [options]="eventSettings" class="md-custom-event" (onPageLoading)="onPageLoading($event)"></mbsc-eventcalendar>
 
   <ng-template #contentTemplate let-data>
       <!-- <div>{{data.title}}</div> -->

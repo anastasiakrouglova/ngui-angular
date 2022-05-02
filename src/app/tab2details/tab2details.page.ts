@@ -27,6 +27,8 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     //   console.log(params) //log the entire params object
     //   console.log(params['id']) //log the value of id
     // });
+
+    // patch
   }
 
   ngOnDestroy() {

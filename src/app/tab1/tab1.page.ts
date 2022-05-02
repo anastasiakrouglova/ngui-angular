@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent } from '@mobiscroll/angular';
+import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent, MbscPageLoadingEvent } from '@mobiscroll/angular';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -16,16 +16,49 @@ import { FormsModule } from '@angular/forms';
 })
 
 
-
-
-
 export class Tab1Page implements OnInit {
 
   constructor(private http: HttpClient, private notify: Notifications) {
 
   }
 
-  myEvents: MbscCalendarEvent[] = [];
+  today: Date = new Date();
+
+  myEvents: MbscCalendarEvent[];
+
+  onPageLoading(event: MbscPageLoadingEvent) {
+    const fromDay = event.firstDay.toISOString();
+    console.log(fromDay);
+    console.log("emlqksjdfqm");
+    const toDay = event.lastDay.toISOString();
+
+    this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe((data: any) => {
+      const events = [];
+      for (let i = 0; i < data.length; i++) {
+        events.push({
+          start: "2022-05-06T07:00:00.000Z",
+          end: "2022-05-08T16:00:00.000Z",
+          title: data[i].name,
+          color: data[i].color,
+          participant: 1
+        });
+      }
+      this.myEvents = events;
+    });
+
+  }
+
+  // myEvents: MbscCalendarEvent[] = [{
+  //   start: "2022-05-06T07:00:00.000Z",
+  //   end: "2022-05-08T16:00:00.000Z",
+  //   title: 'My First Event',
+  //   color: "#ff6d42",
+  //   participant: 1
+  // }, {
+  //   start: new Date(2020, 2, 18, 9, 0),
+  //   end: new Date(2020, 2, 20, 13, 0),
+  //   title: 'My Second Event'
+  // }];
 
 
   eventSettings: MbscEventcalendarOptions = {
@@ -95,11 +128,26 @@ export class Tab1Page implements OnInit {
     this.curr_day = n
   }
 
+  customApi: any =
+  [
+    {
+      start: "2022-05-06T07:00:00.000Z",
+      end: "2022-05-08T16:00:00.000Z",
+      title: "Business of Software Conference",
+      color: "#ff6d42",
+      image: 1
+    }
+  ]
+
 
   ngOnInit() {
-    this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/custom-events/', 'callback').subscribe((resp: any) => {
-      this.myEvents = resp;
-    });
+    // this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/custom-events/', 'callback').subscribe((resp: any) => {
+    //   this.myEvents = resp;
+    // });
+
+    // this.http.jsonp<MbscCalendarEvent[]>('customApi', 'callback').subscribe((resp: any) => {
+    //   this.myEvents = resp;
+    // });
 
     // get all gadgets
     this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
