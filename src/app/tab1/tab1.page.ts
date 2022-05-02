@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MbscEventcalendarOptions, Notifications, MbscCalendarEvent, MbscPageLoadingEvent } from '@mobiscroll/angular';
 import { HttpClient } from '@angular/common/http'
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { DatePipe } from '@angular/common'
-import { MbscModule } from '@mobiscroll/angular';
-import { FormsModule } from '@angular/forms';
-import { Data } from '@angular/router';
 
 
 @Component({
@@ -19,15 +13,12 @@ import { Data } from '@angular/router';
 
 export class Tab1Page implements OnInit {
 
-  constructor(private http: HttpClient, private notify: Notifications) {
+  constructor(private http: HttpClient, private notify: Notifications) {}
 
-  }
-
-  //today: Date = new Date();
 
   myEvents: MbscCalendarEvent[];
-  curr_gadget: any
 
+  // extract date from data[i].day_of_week
   getDay(id: number): any {
     switch (id) {
         case 1:
@@ -48,7 +39,6 @@ export class Tab1Page implements OnInit {
   }
 
   onPageLoading(event: MbscPageLoadingEvent) {
-    const monday = 'MO'
 
     // display all dynamic gadgets
     this.http.get('http://backpack.cvdeede.be/api/gadgets?show_needs=1').subscribe((data: any) => {
@@ -72,50 +62,14 @@ export class Tab1Page implements OnInit {
             allDay: true,
             title: data[i].name,
             icon: 1,
-            recurring: 'FREQ=WEEKLY;UNTIL=2022-07-01;BYDAY='+monday+',TU, FR, SA'
+            recurring: 'FREQ=WEEKLY;UNTIL=2022-07-01;BYDAY='+this.getDay(data[i].dynamic_needs[k].day_of_week)
           });
         }
       }
       this.myEvents = events;
     });
-
-
-    // // display all static gadgets
-    // this.http.get('http://backpack.cvdeede.be/api/static_needs').subscribe((data: any) => {
-    //   const events = [];
-    //   //console.log(this.getDay(this.stat_gadgets[1].day_of_week))
-
-    //   for (let i = 0; i < data.length; i++) {
-    //     events.push({
-    //       start: '08:30',
-    //       allDay: true,
-    //       title: data[i].name,
-    //       //color: data[i].color,
-    //       participant: 1,
-    //       recurring: 'FREQ=WEEKLY;UNTIL=2022-06-01;BYDAY='+monday+',TU, FR, SA'
-    //     });
-    //   }
-    //   this.myEvents = events;
-    // });
-
   }
 
-  // myEvents: MbscCalendarEvent[] = [{
-  //   start: "2022-05-06T07:00:00.000Z",
-  //   end: "2022-05-08T16:00:00.000Z",
-  //   title: 'My First Event',
-  //   color: "#ff6d42",
-  //   participant: 1
-  // }, {
-  //   start: new Date(2020, 2, 18, 9, 0),
-  //   end: new Date(2020, 2, 20, 13, 0),
-  //   title: 'My Second Event'
-  // }];
-
-  getGadgetById(id: Number): any {
-    return this.http.get('http://backpack.cvdeede.be/api/gadgets/' + id).forEach(res => console.log(res))
-      //.parse(JSON.stringify(source)).map(res => res.json());
-  }
 
 
   eventSettings: MbscEventcalendarOptions = {
@@ -147,6 +101,7 @@ export class Tab1Page implements OnInit {
     }
   };
 
+  // Will be needed later on to customize the calendar
   getGadget(id: number): any {
     switch (id) {
         case 1:
@@ -185,16 +140,7 @@ export class Tab1Page implements OnInit {
     this.curr_day = n
   }
 
-
   ngOnInit() {
-    // this.http.jsonp<MbscCalendarEvent[]>('https://trial.mobiscroll.com/custom-events/', 'callback').subscribe((resp: any) => {
-    //   this.myEvents = resp;
-    // });
-
-    // this.http.jsonp<MbscCalendarEvent[]>('customApi', 'callback').subscribe((resp: any) => {
-    //   this.myEvents = resp;
-    // });
-
     // get all gadgets
     this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
       data => {
@@ -211,8 +157,6 @@ export class Tab1Page implements OnInit {
     this.http.get('http://backpack.cvdeede.be/api/static_needs')
       .subscribe(
         source => {
-          //const stat_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
-          //this.static_gadgets_listID = stat_data
           this.stat_gadgets = source
         }
     )
