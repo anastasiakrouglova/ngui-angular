@@ -50,9 +50,9 @@ export class Tab1Page implements OnInit {
           events.push({
             start: data[i].static_needs[j].needed_on,
             allDay: true,
-            title: data[i].name,
+            title: data[i].id,
             color: "#ff6d42",
-            icon: 1
+            img: './assets/1.svg'
           })
         }
         // Dynamic needs are blue
@@ -60,8 +60,9 @@ export class Tab1Page implements OnInit {
           events.push({
             start: "2022-05-06T07:00:00.000Z",
             allDay: true,
-            title: data[i].name,
-            icon: 1,
+            title: data[i].id,
+            //img: './assets/' + data[i].icon + '.svg',
+            img: './assets/1.svg',
             recurring: 'FREQ=WEEKLY;UNTIL=2022-07-01;BYDAY='+this.getDay(data[i].dynamic_needs[k].day_of_week)
           });
         }
@@ -69,8 +70,6 @@ export class Tab1Page implements OnInit {
       this.myEvents = events;
     });
   }
-
-
 
   eventSettings: MbscEventcalendarOptions = {
     theme: 'ios',
@@ -100,26 +99,39 @@ export class Tab1Page implements OnInit {
         }
     }
   };
-
   // Will be needed later on to customize the calendar
   getGadget(id: number): any {
+    id = Number(id);
+
+    let output = {};
     switch (id) {
-        case 1:
-            return {
-                img: './assets/gym.svg',
-                name: 'French book'
-            };
-        case 2:
-            return {
-                img: './assets/math.svg',
-                name: 'Exercise book math'
-            };
-        case 3:
-            return {
-                img: './assets/water.svg',
-                name: 'Bottle of water'
-            };
+      case 1:
+        output = {
+          img: './assets/1.svg',
+          name: 'French book'
+        };
+        break;
+      case 2:
+        output = {
+          img: './assets/2.svg',
+          name: 'Exercise book math'
+        };
+        break;
+      case 3:
+        output = {
+          img: './assets/3.svg',
+          name: 'Bottle of water'
+        };
+        break;
+      default:
+        output = {
+          img: './assets/1.svg<3',
+          name: 'French book'
+        };
+        break;
     }
+    console.log(output);
+    return output;
   }
 
   add(ev: any, data: any): void {

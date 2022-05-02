@@ -21,16 +21,29 @@
   <!-- https://docs.mobiscroll.com/angular/eventcalendar -->
 
   <!-- <mbsc-eventcalendar  [data]="myEvents" [options]="eventSettings"></mbsc-eventcalendar> -->
-  <!-- <mbsc-eventcalendar [eventContentTemplate]="contentTemplate" [data]="myEvents" [options]="eventSettings" class="md-custom-event" (onPageLoading)="onPageLoading($event)"></mbsc-eventcalendar> -->
-  <mbsc-eventcalendar [data]="myEvents" [options]="eventSettings" class="md-custom-event" (onPageLoading)="onPageLoading($event)"></mbsc-eventcalendar>
+  <mbsc-eventcalendar [eventContentTemplate]="contentTemplate" [data]="myEvents" [options]="eventSettings" class="md-custom-event" (onPageLoading)="onPageLoading($event)"></mbsc-eventcalendar>
+  <!-- <mbsc-eventcalendar [data]="myEvents" [options]="eventSettings" class="md-custom-event" (onPageLoading)="onPageLoading($event)"></mbsc-eventcalendar> -->
 
 
-  <!-- <ng-template #contentTemplate let-data>
-      <div class="md-custom-event-cont">
-          <img class="md-custom-event-img" [src]="getGadget(data.original.participant).img" />
-          <div class="mbsc-custom-event-name">{{getGadget(data.original.participant).name}}</div>
+
+<ng-template #contentTemplate let-data>
+  <div class="md-custom-event-cont">
+      <!-- <div *ngIf="data.title == 1">
+        <img class="md-custom-event-img" [src]="getGadget(1).img" />
       </div>
-  </ng-template> -->
+      <div *ngIf="data.title == 2">
+        <img class="md-custom-event-img" [src]="getGadget(2).img" />
+      </div>
+      <div *ngIf="data.title == 3">
+        <img class="md-custom-event-img" [src]="getGadget(3).img" />
+      </div> -->
+
+      <img class="md-custom-event-img" [src]="getGadget(data.title).img" />
+      <div class="my-title">{{data.title}}</div>
+      <!-- <div class="mbsc-custom-event-name">{{getGadget(data.original.icon).name}}</div> -->
+  </div>
+</ng-template>
+
 
 
   <!-- USE THIS AS INSPIRATION TO GET DATA FROM SERVER -->
