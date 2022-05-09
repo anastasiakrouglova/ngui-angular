@@ -58,9 +58,11 @@ export class Tab2Page {
   )
   }
 
-  deleteItem(id) {
+  deleteItem(id, event) {
     console.log("item deleted")
     this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
+
+    this.doRefresh(event);
     //window.location.reload();
   }
 
