@@ -114,19 +114,52 @@ export class Tab1Page implements OnInit {
       case 2:
         output = {
           img: './assets/2.svg',
-          name: 'Exercise book math'
+          // name:
         };
         break;
       case 3:
         output = {
           img: './assets/3.svg',
-          name: 'Bottle of water'
         };
         break;
+      case 4:
+          output = {
+            img: './assets/4.svg',
+          };
+        break;
+      case 5:
+          output = {
+            img: './assets/5.svg',
+          };
+        break;
+      case 6:
+          output = {
+            img: './assets/6.svg',
+          };
+        break;
+      case 7:
+          output = {
+            img: './assets/7.svg',
+          };
+        break;
+      case 8:
+          output = {
+            img: './assets/8.svg',
+          };
+        break;
+      case 9:
+          output = {
+            img: './assets/9.svg',
+          };
+        break;
+      case 10:
+          output = {
+            img: './assets/10.svg',
+          };
+          break;
       default:
         output = {
-          img: './assets/1.svg<3',
-          name: 'French book'
+          img: './assets/10.svg',
         };
         break;
     }

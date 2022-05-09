@@ -1,5 +1,5 @@
-import { FormsModule } from '@angular/forms';
 import { MbscModule } from '@mobiscroll/angular';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -14,8 +14,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [ 
+    MbscModule,  
     FormsModule,  
-    MbscModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
