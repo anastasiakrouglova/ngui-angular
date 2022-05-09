@@ -15,11 +15,14 @@
   <br>
 
   <!-- <p *ngIf="gadgets.length === 0">No Record Found</p>   -->
-  <ion-list>
+  <list class="button-container">
     <div *ngFor="let gadget of gadgets">
-      <ion-button (click)="openDetailPage(gadget.id)">{{gadget.name}} </ion-button>
+      <button class="button-wrap"  (click)="openDetailPage(gadget.id)">
+        <img src="../../assets/{{gadget.icon}}.svg" alt="icon">
+        <p>{{gadget.name}}</p>
+      </button>
     </div>
-  </ion-list>
+  </list>
 
   <ion-button expand="full" id="edit">Edit Gadgetlist</ion-button>
 
