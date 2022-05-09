@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
+
 // import { Resolver } from 'dns';
 
 @Component({
@@ -10,12 +11,25 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./tab2details.page.scss'],
 })
 export class Tab2detailsPage implements OnInit, OnDestroy {
+  gadgetName;     //stores inputed name
+  //aesthetics = false;
+
   id: number;
   private sub: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
-  //gadgets: any;
+  //working on gadget editing
+  getName() {
+    console.log(this.gadgetName)
+    console.log(this.id)
+  }
+
+  updateGadgetName() {
+    this.http.patch('http://backpack.cvdeede.be/api/gadgets/{this.id}', this.gadgetName).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
