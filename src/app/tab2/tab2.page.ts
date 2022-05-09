@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class Tab2Page {
 
+  status;
   gadgets: any;
 
   constructor(
@@ -45,6 +46,12 @@ export class Tab2Page {
         this.gadgets[id] = data;
       }
   )
+  }
+
+  deleteItem(id) {
+    console.log("item deleted")
+    this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
+    //window.location.reload();
   }
 
 }

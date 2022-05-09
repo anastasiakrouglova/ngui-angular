@@ -164,7 +164,7 @@ export class Tab1Page implements OnInit {
         };
         break;
     }
-    console.log(output);
+    //console.log(output);
     return output;
   }
 

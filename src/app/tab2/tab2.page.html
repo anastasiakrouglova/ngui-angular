@@ -7,23 +7,33 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <div class="page-container">
+  <h1 class="title">Overview</h1>
+
+  <div class="edit-cont">
+    <button class="edit-btn" id="edit" >Edit Gadgetlist</button>
+  </div>
+
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Overview</ion-title>
     </ion-toolbar>
-  </ion-header>
-  <br>
+  </ion-header> -->
 
   <!-- <p *ngIf="gadgets.length === 0">No Record Found</p>   -->
   <list class="button-container">
     <div *ngFor="let gadget of gadgets">
       <button class="button-wrap"  (click)="openDetailPage(gadget.id)">
-        <img src="../../assets/{{gadget.icon}}.svg" alt="icon">
-        <p>{{gadget.name}}</p>
+        <img src="../../assets/{{gadget.icon}}.svg" alt="icon" width=30 height=30>
+
+        <p class="gadget-title">{{gadget.name}}</p>
+        <!-- <input ng-show="edit == true" ng-model="gadget.name" > -->
       </button>
+      <button id="gadget.id" (click)="deleteItem(gadget.id)">DELETE</button>
     </div>
   </list>
 
-  <ion-button expand="full" id="edit">Edit Gadgetlist</ion-button>
 
+
+</div>
 </ion-content>
