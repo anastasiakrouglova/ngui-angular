@@ -7,12 +7,16 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="page-container">
   <h1 class="title">Overview</h1>
 
-  <div class="edit-cont">
-    <button class="edit-btn" id="edit" >Edit Gadgetlist</button>
-  </div>
+  <!-- <div class="edit-cont">
+    <button class="edit-btn" id="edit" (click)="doRefresh($event)">Edit Gadgetlist</button>
+  </div> -->
 
   <!-- <ion-header collapse="condense">
     <ion-toolbar>
@@ -21,6 +25,11 @@
   </ion-header> -->
 
   <!-- <p *ngIf="gadgets.length === 0">No Record Found</p>   -->
+
+      <!-- Your virtual scroll content -->
+
+
+
   <list class="button-container">
     <div *ngFor="let gadget of gadgets">
       <button class="button-wrap"  (click)="openDetailPage(gadget.id)">
@@ -29,7 +38,8 @@
         <p class="gadget-title">{{gadget.name}}</p>
         <!-- <input ng-show="edit == true" ng-model="gadget.name" > -->
       </button>
-      <button id="gadget.id" (click)="deleteItem(gadget.id)">DELETE</button>
+      <!-- Doesn't work yet (does not refresh) -->
+      <button id="gadget.id" (click)="deleteItem(gadget.id, $event)">DELETE</button>
     </div>
   </list>
 

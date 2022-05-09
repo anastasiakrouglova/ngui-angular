@@ -25,6 +25,16 @@ export class Tab2Page {
     this.fetchGadgets();
   }
 
+  doRefresh(event) {
+    window.location.reload();
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
+  }
+
   openDetailPage(id) {
     this.getGadgetById(id);
     this.router.navigateByUrl('tabs/edit/'+id)
