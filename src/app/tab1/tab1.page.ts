@@ -50,7 +50,8 @@ export class Tab1Page implements OnInit {
           events.push({
             start: data[i].static_needs[j].needed_on,
             allDay: true,
-            title: data[i].id,
+            title: data[i].name,
+            id:  data[i].icon,
             color: "#ff6d42",
             img: './assets/1.svg'
           })
@@ -60,8 +61,8 @@ export class Tab1Page implements OnInit {
           events.push({
             start: "2022-05-06T07:00:00.000Z",
             allDay: true,
-            title: data[i].id,
-            //img: './assets/' + data[i].icon + '.svg',
+            title: data[i].name,
+            id:  data[i].icon,
             img: './assets/1.svg',
             recurring: 'FREQ=WEEKLY;UNTIL=2022-07-01;BYDAY='+this.getDay(data[i].dynamic_needs[k].day_of_week)
           });
