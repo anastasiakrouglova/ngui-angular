@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class Tab2detailsPage implements OnInit, OnDestroy {
   gadgetName;     //stores inputed name
+  nameOfGadget = '';
   //aesthetics = false;
 
   id: number;
@@ -26,15 +27,23 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   updateGadgetName() {
-    this.http.patch('http://backpack.cvdeede.be/api/gadgets/{this.id}', this.gadgetName).subscribe((res: any) => {
-      console.log(res);
-    });
+    // this.http.patch('http://backpack.cvdeede.be/api/gadgets/{this.id}',
+    // {name: this.gadgetName}).subscribe((res: any) => {
+    //   console.log(res);
+    // });
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     })
+
+    this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
+      res => {
+        // put all the data we get, to the list gadgets
+        this.nameOfGadget = res[this.id - 1].name;
+        console.log(this.nameOfGadget)
+      })
 
     //this.fetchGadgets()
     // this.routeSub = this.route.params.subscribe(params => {
