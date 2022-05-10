@@ -27,7 +27,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
 
   // Supposed to change gadget name on click of 'confirm' button
   updateGadgetName() {
-    this.http.patch('http://backpack.cvdeede.be/api/gadgets/{this.id}',
+    this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
       { name: this.gadgetName }).subscribe((res: any) => {
         console.log(res);
       });
