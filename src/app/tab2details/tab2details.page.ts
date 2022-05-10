@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./tab2details.page.scss'],
 })
 export class Tab2detailsPage implements OnInit, OnDestroy {
-  gadgetName;     //stores inputed name
-  nameOfGadget = '';
+  gadgetName;     //holds the name inputed
+  nameOfGadget = '';    // holds name of gadget
 
   id: number;
   private sub: any;
@@ -28,9 +28,9 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   // Supposed to change gadget name on click of 'confirm' button
   updateGadgetName() {
     this.http.patch('http://backpack.cvdeede.be/api/gadgets/{this.id}',
-    {name: this.gadgetName}).subscribe((res: any) => {
-      console.log(res);
-    });
+      { name: this.gadgetName }).subscribe((res: any) => {
+        console.log(res);
+      });
   }
 
   ngOnInit() {
@@ -38,10 +38,9 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
       this.id = +params['id'];
     })
 
-    // DIsplays the name of gadget being edited.
     this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
       res => {
-        // put all the data we get, to the list gadgets
+        // store the name of the gadget in nameOfGadget
         this.nameOfGadget = res[this.id - 1].name;
         console.log(this.nameOfGadget)
       })
