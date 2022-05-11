@@ -25,7 +25,7 @@
 
 
 
-  <ion-item>
+  <!-- <ion-item>
     <ion-label><strong>Module</strong></ion-label>
     <ion-toggle color="tertiary" slot="start" name="module"></ion-toggle>
   </ion-item>
@@ -82,9 +82,14 @@
         <ion-select-option value="remind3">1 hour before</ion-select-option>
       </ion-select>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
   <br>
+
+  <div class="confbutton">
+    <ion-button expand="block" (click)='openEditPage()'>Edit</ion-button>
+  </div>
+ 
 
   <div class="confbutton" align="right">
     <ion-button (click)="getName()" (click)="updateGadgetName()">Confirm</ion-button>

@@ -17,7 +17,12 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   id: number;
   private sub: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
+
+
+  openEditPage() {
+    this.router.navigateByUrl('tabs/edit/'+this.id)
+  }
 
   //working on gadget editing
   getName() {
@@ -36,6 +41,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
+      //console.log(params)
     })
 
     this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
@@ -66,14 +72,6 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   //     // this.loadCtrl.dismiss();
   //   });
   // }
-
-
-
-  // getGadgetById(id) {
-  //   // this.http.get('http://backpack.cvdeede.be/api/gadgets/'+id).subscribe(
-  //   //   data => {
-  //   //     this.gadget = data;
-  //   //   }
 
 
   //   // resolve(route: ActivatedRouteSnapshot) {
