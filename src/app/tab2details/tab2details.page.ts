@@ -15,13 +15,15 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   nameOfGadget = '';    // holds name of gadget
 
   id: number;
+  staticDays: any;
+  
   private sub: any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
 
   openEditPage() {
-    this.router.navigateByUrl('tabs/edit/'+this.id)
+    this.router.navigateByUrl('tabs/edit/' + this.id)
   }
 
   //working on gadget editing
@@ -30,7 +32,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     console.log(this.id)
   }
 
-  // Supposed to change gadget name on click of 'confirm' button
+  // change gadget name
   updateGadgetName() {
     this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
       { name: this.gadgetName }).subscribe((res: any) => {
@@ -42,14 +44,36 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
       //console.log(params)
-    })
+    });
 
-    this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
+    this.http.get('http://backpack.cvdeede.be/api/gadgets/' + this.id).subscribe(
       res => {
         // store the name of the gadget in nameOfGadget
-        this.nameOfGadget = res[this.id - 1].name;
-        console.log(this.nameOfGadget)
-      })
+        this.nameOfGadget = res['name'];
+        console.log(this.nameOfGadget);
+      });
+
+    // gets static need
+    // change 0, 1... to sunday, monday...
+    this.http.get('http://backpack.cvdeede.be/api/static_needs?gadget_id=' + this.id).subscribe(
+      (data: any) => {
+        // store the name of the gadget in nameOfGadget
+        for (const x of data) {
+          const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+          x.day_of_week = daysOfWeek[x.day_of_week]
+          this.staticDays = data;
+        }
+        console.log(this.staticDays);
+      });
+
+    // this.changeToDays()
+    // changeToDays() {
+    //   for (const x of this.staticDays) {
+    //     x.day_of_week = this.daysOfWeek[x.day_of_week]
+    //     console.log(x.day_of_week);
+    //   }
+    //   console.log(this.staticDays);
+    // }
 
     //this.fetchGadgets()
     // this.routeSub = this.route.params.subscribe(params => {

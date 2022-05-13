@@ -10,9 +10,30 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <h3>Edit Here</h3>
-    <h3>{{ id }}</h3>   
+  <div align="center">
+    <!-- Rename Gadget -->
+    <h3><ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input></h3>
+  </div>
+  <br>
+
+  <div class="staticNeeds">
+    <ion-list>
+      <ion-item *ngFor="let day of days">
+        <ion-label>{{day.val}}</ion-label>
+        <ion-checkbox slot="start" [(ngModel)]="day.isChecked"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+  <div class="confbutton">
+    <ion-button expand="block" color="danger">Delete Gadget</ion-button>
+    <br>
+    <ion-button expand="block" (click)="updateGadgetName()">Save</ion-button>
+  </div>
+
+  <div class="confbutton">
+
   </div>
 
 

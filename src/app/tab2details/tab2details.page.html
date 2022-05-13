@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Add Gadget
+      Gadget Details
     </ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="#"></ion-back-button>
@@ -11,88 +11,25 @@
 
 <ion-content [fullscreen]="true">
 
-  <div>
-    <h3>{{ id }}</h3>
-    <h2>{{ nameOfGadget }}</h2>    
+  <div align="center">
+    <!-- <h3>{{ id }}</h3> -->
+    <h3>{{ nameOfGadget }}</h3>
   </div>
 
-  <!-- Inputs with labels -->
-  <ion-item>
-    <ion-label><strong>Name:</strong></ion-label>
-    <!-- <ion-input type='text' #gadgetName name="gadgetName"></ion-input> -->
-    <ion-input type='text' [(ngModel)]="gadgetName"></ion-input>
-  </ion-item>
-
-
-
-  <!-- <ion-item>
-    <ion-label><strong>Module</strong></ion-label>
-    <ion-toggle color="tertiary" slot="start" name="module"></ion-toggle>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>aesthetics</ion-label>
-    <ion-checkbox color="primary" slot="start" (ionChange)="checkChange($event)"></ion-checkbox>
-  </ion-item>
-
-
-  <div class="cust-icon" align="center">
-    <ion-icon name="book-sharp" class="custom-icon"></ion-icon>
-    <ion-icon name="laptop-sharp" class="custom-icon"></ion-icon>
-    <ion-icon name="fast-food-sharp" class="custom-icon"></ion-icon>
+  <!-- Working on this currently(change no to days of week) -->
+  <div class="staticNeeds">
+    <p><strong>Needs on regular basis</strong></p>
+    <ion-list>
+      <ion-item *ngFor="let day of staticDays">
+        <ion-label>{{day.day_of_week}}</ion-label>
+        <!-- <ion-checkbox slot="start" [(ngModel)]="day.isChecked"></ion-checkbox> -->
+      </ion-item>
+    </ion-list>
   </div>
-
-  <div class="ion-padding" align="center">
-    <ion-icon name="wallet-sharp" class="custom-icon"></ion-icon>
-    <ion-icon name="headset-sharp" class="custom-icon"></ion-icon>
-    <ion-icon name="watch-sharp" class="custom-icon"></ion-icon>
-  </div>
-
-  <ion-list>
-    <ion-item>
-      <ion-label>Frequency</ion-label>
-      <ion-select value="frequency">
-        <ion-select-option value="daily">Every day</ion-select-option>
-        <ion-select-option value="weekly">Every week</ion-select-option>
-        <ion-select-option value="biweekly">Every 2 weeks 7</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>From</ion-label>
-      <ion-select value="from">
-        <ion-select-option value="today">Today</ion-select-option>
-        <ion-select-option value="tomorrow">Tomorrow</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>To</ion-label>
-      <ion-select value="to">
-        <ion-select-option value="to1">22 April 2022</ion-select-option>
-        <ion-select-option value="to2">30 April 2022</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Reminder</ion-label>
-      <ion-select value="reminder">
-        <ion-select-option value="remind1">5 min before</ion-select-option>
-        <ion-select-option value="remind2">15 min before</ion-select-option>
-        <ion-select-option value="remind3">1 hour before</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-list> -->
-
   <br>
 
   <div class="confbutton">
     <ion-button expand="block" (click)='openEditPage()'>Edit</ion-button>
-  </div>
- 
-
-  <div class="confbutton" align="right">
-    <ion-button (click)="getName()" (click)="updateGadgetName()">Confirm</ion-button>
   </div>
 
   <br>
