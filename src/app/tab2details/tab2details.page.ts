@@ -16,6 +16,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
 
   id: number;
   staticDays: any;
+  dynamicDays: any;
   
   private sub: any;
 
@@ -58,6 +59,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     this.http.get('http://backpack.cvdeede.be/api/static_needs?gadget_id=' + this.id).subscribe(
       (data: any) => {
         // store the name of the gadget in nameOfGadget
+        data.sort(function(a, b) {return a.day_of_week - b.day_of_week; });
         for (const x of data) {
           const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
           x.day_of_week = daysOfWeek[x.day_of_week]

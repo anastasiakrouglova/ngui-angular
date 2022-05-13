@@ -16,7 +16,8 @@
     <h3>{{ nameOfGadget }}</h3>
   </div>
 
-  <!-- Working on this currently(change no to days of week) -->
+  <br>
+  <!-- Displays static needs -->
   <div class="staticNeeds">
     <p><strong>Needs on regular basis</strong></p>
     <ion-list>
@@ -26,6 +27,19 @@
       </ion-item>
     </ion-list>
   </div>
+  <br>
+
+  <!-- Displays static needs -->
+  <div class="dynamicNeeds">
+    <p><strong>Needs on specific days</strong></p>
+    <ion-list>
+      <ion-item *ngFor="let day of dynamicDays">
+        <ion-label>{{day.day_of_week}}</ion-label>
+        <!-- <ion-checkbox slot="start" [(ngModel)]="day.isChecked"></ion-checkbox> -->
+      </ion-item>
+    </ion-list>
+  </div>
+
   <br>
 
   <div class="confbutton">
