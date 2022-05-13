@@ -23,7 +23,6 @@
     <ion-list>
       <ion-item *ngFor="let day of staticDays">
         <ion-label>{{day.day_of_week}}</ion-label>
-        <!-- <ion-checkbox slot="start" [(ngModel)]="day.isChecked"></ion-checkbox> -->
       </ion-item>
     </ion-list>
   </div>
@@ -34,8 +33,7 @@
     <p><strong>Needs on specific days</strong></p>
     <ion-list>
       <ion-item *ngFor="let day of dynamicDays">
-        <ion-label>{{day.day_of_week}}</ion-label>
-        <!-- <ion-checkbox slot="start" [(ngModel)]="day.isChecked"></ion-checkbox> -->
+        <ion-label>{{day.needed_on}}</ion-label>
       </ion-item>
     </ion-list>
   </div>

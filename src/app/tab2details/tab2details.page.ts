@@ -17,7 +17,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   id: number;
   staticDays: any;
   dynamicDays: any;
-  
+
   private sub: any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
@@ -54,18 +54,36 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
         console.log(this.nameOfGadget);
       });
 
-    // gets static need
+    // gets static need(day_of_week)
     // change 0, 1... to sunday, monday...
     this.http.get('http://backpack.cvdeede.be/api/static_needs?gadget_id=' + this.id).subscribe(
       (data: any) => {
-        // store the name of the gadget in nameOfGadget
-        data.sort(function(a, b) {return a.day_of_week - b.day_of_week; });
+        data.sort(function (a, b) { return a.day_of_week - b.day_of_week; });
         for (const x of data) {
-          const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-          x.day_of_week = daysOfWeek[x.day_of_week]
+          const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+          x.day_of_week = daysOfWeek[x.day_of_week];
           this.staticDays = data;
         }
         console.log(this.staticDays);
+      });
+
+
+    // gets dynamic need
+    // change 0, 1... to sunday, monday...
+    this.http.get('http://backpack.cvdeede.be/api/dynamic_needs?gadget_id=' + this.id).subscribe(
+      (data: any) => {
+        // convert needed_on
+        for (const y of data) {
+          const date = new Date(y.needed_on);
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1;
+          let dt = date.getDate();
+          const theMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+          const monthM = theMonths[month - 1];
+          y.needed_on = dt + ' ' + monthM + ' ' + year;
+          this.dynamicDays = data;
+        }
+        console.log(this.dynamicDays);
       });
 
     // this.changeToDays()
@@ -105,12 +123,4 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   //   //   return this.dataService.getData(id)
   //   // }
 
-  //   // getName(theName: string) {
-
-  //   //    //log name on button click
-  //   //   console.log(theName);
-
-  //   // }
-
-  // }
 }
