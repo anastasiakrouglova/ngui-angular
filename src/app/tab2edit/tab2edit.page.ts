@@ -30,11 +30,24 @@ export class Tab2editPage implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
   // Supposed to change gadget name on click of 'SAVE' button
-  updateGadgetName() {
+  updateGadget() {
     this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
       { name: this.gadgetName }).subscribe((res: any) => {
         console.log(res);
       });
+
+    this.router.navigate(['/tabs/tab2']);
+  }
+
+
+  updateWeekly() {
+    console.log("update")
+    // this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
+    //   { name: this.gadgetName }).subscribe((res: any) => {
+    //     console.log(res);
+    //   });
+
+    //this.router.navigate(['/tabs/tab2']);
   }
 
   ngOnInit() {

@@ -166,6 +166,7 @@ let Tab1Page = class Tab1Page {
             // put all the data we get, to the list gadgets
             this.gadgets = data;
         });
+        this.getMissing();
         this.getDate();
         this.getStaticGadgets();
         this.getDynamicGadgets();
@@ -182,6 +183,12 @@ let Tab1Page = class Tab1Page {
             //const dyn_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
             //this.dynamic_gadgets_listID = dyn_data
             this.dyn_gadgets = source;
+        });
+    }
+    getMissing() {
+        this.http.get('http://backpack.cvdeede.be/api/missing')
+            .subscribe(source => {
+            this.missing = source;
         });
     }
 };

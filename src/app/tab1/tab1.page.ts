@@ -179,6 +179,7 @@ export class Tab1Page implements OnInit {
   stat_gadgets: any
   dyn_gadgets: any
   curr_day: any
+  missing: any
 
   getDate() {
     var d = new Date();
@@ -194,9 +195,11 @@ export class Tab1Page implements OnInit {
         this.gadgets = data;
       }
     )
+    this.getMissing();
     this.getDate();
     this.getStaticGadgets();
     this.getDynamicGadgets();
+
   }
 
   getStaticGadgets() {
@@ -215,6 +218,15 @@ export class Tab1Page implements OnInit {
         //const dyn_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
         //this.dynamic_gadgets_listID = dyn_data
         this.dyn_gadgets = source
+      }
+    )
+  }
+
+  getMissing() {
+    this.http.get('http://backpack.cvdeede.be/api/missing')
+    .subscribe(
+      source => {
+        this.missing = source
       }
     )
   }

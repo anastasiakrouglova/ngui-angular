@@ -17,10 +17,19 @@ let Tab2editPage = class Tab2editPage {
         ];
     }
     // Supposed to change gadget name on click of 'SAVE' button
-    updateGadgetName() {
+    updateGadget() {
         this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id, { name: this.gadgetName }).subscribe((res) => {
             console.log(res);
         });
+        this.router.navigate(['/tabs/tab2']);
+    }
+    updateWeekly() {
+        console.log("update");
+        // this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
+        //   { name: this.gadgetName }).subscribe((res: any) => {
+        //     console.log(res);
+        //   });
+        //this.router.navigate(['/tabs/tab2']);
     }
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {

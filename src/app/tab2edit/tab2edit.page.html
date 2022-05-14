@@ -20,20 +20,16 @@
     <ion-list>
       <ion-item *ngFor="let day of days">
         <ion-label>{{day.val}}</ion-label>
-        <ion-checkbox slot="start" [(ngModel)]="day.isChecked"></ion-checkbox>
+        <ion-checkbox slot="start" checked="true" [(ngModel)]="day.isChecked" ></ion-checkbox>
       </ion-item>
     </ion-list>
-
   </div>
 
   <div class="confbutton">
-    <!-- <button id="gadget.id" (click)="deleteItem(gadget.id, $event)">DELETE</button> -->
-    <!-- <ion-route-redirect from="/tabs/edit/currGadget.id" to="/tabs/tab2"> -->
+    <ion-button expand="block" (click)="updateWeekly()">TEST: update weekly</ion-button>
       <ion-button expand="block"  (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
-    <!-- </ion-route-redirect> -->
-
     <br>
-    <ion-button expand="block" (click)="updateGadgetName()">Save</ion-button>
+    <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
   </div>
 
   <div class="confbutton">
