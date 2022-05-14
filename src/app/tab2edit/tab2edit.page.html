@@ -27,7 +27,11 @@
   </div>
 
   <div class="confbutton">
-    <ion-button expand="block" color="danger">Delete Gadget</ion-button>
+    <!-- <button id="gadget.id" (click)="deleteItem(gadget.id, $event)">DELETE</button> -->
+    <!-- <ion-route-redirect from="/tabs/edit/currGadget.id" to="/tabs/tab2"> -->
+      <ion-button expand="block"  (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
+    <!-- </ion-route-redirect> -->
+
     <br>
     <ion-button expand="block" (click)="updateGadgetName()">Save</ion-button>
   </div>

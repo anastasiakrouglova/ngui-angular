@@ -9,6 +9,8 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 })
 export class Tab2editPage implements OnInit {
 
+  status;
+  currGadget: any;
   id: number;
   nameOfGadget = '';    //holds the name inputed
   gadgetName;           // holds name of gadget
@@ -25,7 +27,7 @@ export class Tab2editPage implements OnInit {
 
   private sub: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
   // Supposed to change gadget name on click of 'SAVE' button
   updateGadgetName() {
@@ -45,7 +47,17 @@ export class Tab2editPage implements OnInit {
         // store the name of the gadget in nameOfGadget
         this.nameOfGadget = res['name'];
         console.log(this.nameOfGadget)
+        this.currGadget = res
       })
 
+  }
+
+
+  deleteItem(id, event) {
+    console.log("item deleted")
+
+    this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
+
+    this.router.navigate(['/tabs/tab2'])
   }
 }
