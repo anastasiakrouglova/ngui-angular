@@ -10,33 +10,66 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 export class Tab2editPage implements OnInit {
 
   status;
+  statusD;
   currGadget: any;
   id: number;
   nameOfGadget = '';    //holds the name inputed
   gadgetName;           // holds name of gadget
+  inStatic;
 
   public days = [
+    { val: 'Sunday', isChecked: false },
     { val: 'Monday', isChecked: false },
     { val: 'Tuesday', isChecked: false },
     { val: 'Wednesday', isChecked: false },
     { val: 'Thursday', isChecked: false },
     { val: 'Friday', isChecked: false },
-    { val: 'Saturday', isChecked: false },
-    { val: 'Sunday', isChecked: false }
+    { val: 'Saturday', isChecked: false }
   ];
+
+  daysList = [];
 
   private sub: any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
   // Supposed to change gadget name on click of 'SAVE' button
+  // Now it also changes content of static_needs on the backend according to days selected in checkbox
   updateGadget() {
     this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
       { name: this.gadgetName }).subscribe((res: any) => {
         console.log(res);
       });
 
-    this.router.navigate(['/tabs/tab2']);
+      console.log(this.days);  // logs days of the week
+
+      for (const x of this.days) {
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        if (x.isChecked===true) {
+          this.daysList.push(daysOfWeek.indexOf(x.val))
+        }
+      }
+      console.log(this.daysList);
+
+      this.http.get('http://backpack.cvdeede.be/api/static_needs?gadget_id=' + this.id).subscribe(
+        res => {
+          console.log(res);
+          this.inStatic = res;
+          console.log(this.inStatic)
+          for (const x of this.inStatic) {
+            this.http.delete('http://backpack.cvdeede.be/api/static_needs/' + x.id).subscribe(() => this.statusD = 'Delete successful');
+          }
+
+          for (const x of this.daysList) {
+            this.http.post('http://backpack.cvdeede.be/api/static_needs/', {gadget_id: this.id, day_of_week: x}).subscribe(
+              res2 => {
+                console.log(res2)
+              }
+            )
+          }
+        }
+      )
+    this.router.navigate(['/tabs/tab1']);
   }
 
 
