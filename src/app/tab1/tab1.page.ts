@@ -224,25 +224,59 @@ export class Tab1Page implements OnInit {
 
   getMissingAmount() {
     if (this.missing != null) {
-      return this.missing.length
+      if (this.getTotalAmount() != undefined) {
+        return this.getTotalAmount() - this.missing.length
+      }
     }
+  }
+
+  progress() {
+    if (this.getMissingAmount() != undefined || this.getTotalAmount() != undefined ) {
+      const deling = this.getMissingAmount() / this.getTotalAmount()
+      console.log(deling)
+
+      return deling
+    }
+
   }
 
   getTotalAmount() {
     if (this.gadgets != null) {
       const list = []
 
+      // push all static needs of today
       for (let i = 0; i < this.stat_gadgets.length; i++) {
-
         if (this.stat_gadgets[i].day_of_week == this.curr_day) {
           list.push(i)
         }
       }
 
+      var today = new Date();
+      var formattedToday = this.WithoutTime(today).toDateString()
+
+      // push all dynamic needs of today
+      if (this.dyn_gadgets != undefined) {
+      for (let i = 0; i < this.dyn_gadgets.length; i++) {
+        var missingD = new Date(this.dyn_gadgets[i].needed_on)
+        var formattedMissingD = this.WithoutTime(missingD).toDateString()
+
+        if (formattedMissingD == formattedToday) {
+           list.push(i)
+        }
+      }
+
+    }
+
       return list.length
     }
 
   }
+
+    WithoutTime(dateTime) {
+    var date = new Date(dateTime.getTime());
+    date.setHours(0, 0, 0, 0);
+    return date;
+    }
 
   getMissing() {
     this.http.get('http://backpack.cvdeede.be/api/missing')

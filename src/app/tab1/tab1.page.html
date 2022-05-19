@@ -7,7 +7,7 @@
     </div>
 
   <ion-text>{{getMissingAmount()}}/{{getTotalAmount()}} gadgets in backpack</ion-text>
-  <ion-progress-bar class="progress-bar" color="primary" value="0.5"></ion-progress-bar>
+  <ion-progress-bar class="progress-bar" color="primary" [value]="progress()"></ion-progress-bar>
 
   <!-- https://docs.mobiscroll.com/angular/eventcalendar -->
   <mbsc-eventcalendar [eventContentTemplate]="contentTemplate" [data]="myEvents" [options]="eventSettings" class="md-custom-event" (onPageLoading)="onPageLoading($event)"></mbsc-eventcalendar>
