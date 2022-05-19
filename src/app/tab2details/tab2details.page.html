@@ -4,19 +4,18 @@
       Gadget Details
     </ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="#"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-
+<ion-content [fullscreen]="true" *ngIf="edit == false">
   <div align="center">
     <!-- <h3>{{ id }}</h3> -->
     <h3>{{ nameOfGadget }}</h3>
   </div>
 
-  <br>
+
   <!-- Displays static needs -->
   <div class="staticNeeds">
     <p><strong>Needs on regular basis</strong></p>
@@ -26,7 +25,6 @@
       </ion-item>
     </ion-list>
   </div>
-  <br>
 
   <!-- Displays static needs -->
   <div class="dynamicNeeds">
@@ -38,19 +36,44 @@
     </ion-list>
   </div>
 
-  <br>
 
   <div class="confbutton">
-    <ion-button expand="block" (click)='openEditPage()'>Edit</ion-button>
+    <!-- (click)='edit = true' -->
+    <ion-button expand="block" (click)="editPage()">Edit</ion-button>
   </div>
+</ion-content>
 
+
+
+
+
+
+<!-- EDIT GADGET -->
+<ion-content *ngIf="edit == true">
+  <div align="center">
+    <!-- Rename Gadget -->
+    <h3><ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input></h3>
+  </div>
   <br>
 
-  <!-- <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
+  <div class="staticNeeds">
+    <ion-list>
+      <ion-item *ngFor="let day of days">
+        <ion-label>{{day.val}}</ion-label>
+          <ion-checkbox *ngIf="day.val == 'Monday'" slot="start" checked="true" ></ion-checkbox>
+          <ion-checkbox *ngIf="day.val != 'Monday'" slot="start" ></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </div>
 
+  <div class="confbutton">
 
+      <ion-button expand="block"  (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
+    <br>
+    <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
+  </div>
+
+  <div class="confbutton">
+
+  </div>
 </ion-content>

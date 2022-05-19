@@ -222,6 +222,28 @@ export class Tab1Page implements OnInit {
     )
   }
 
+  getMissingAmount() {
+    if (this.missing != null) {
+      return this.missing.length
+    }
+  }
+
+  getTotalAmount() {
+    if (this.gadgets != null) {
+      const list = []
+
+      for (let i = 0; i < this.stat_gadgets.length; i++) {
+
+        if (this.stat_gadgets[i].day_of_week == this.curr_day) {
+          list.push(i)
+        }
+      }
+
+      return list.length
+    }
+
+  }
+
   getMissing() {
     this.http.get('http://backpack.cvdeede.be/api/missing')
     .subscribe(

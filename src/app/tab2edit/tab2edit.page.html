@@ -20,13 +20,14 @@
     <ion-list>
       <ion-item *ngFor="let day of days">
         <ion-label>{{day.val}}</ion-label>
-        <ion-checkbox slot="start" checked="true" [(ngModel)]="day.isChecked" ></ion-checkbox>
+          <ion-checkbox *ngIf="day.val == 'Monday'" slot="start" checked="true" ></ion-checkbox>
+          <ion-checkbox *ngIf="day.val != 'Monday'" slot="start" ></ion-checkbox>
       </ion-item>
     </ion-list>
   </div>
 
   <div class="confbutton">
-    <ion-button expand="block" (click)="updateWeekly()">TEST: update weekly</ion-button>
+    <!-- <ion-button expand="block" (click)="updateWeekly()">TEST: update weekly</ion-button> -->
       <ion-button expand="block"  (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
     <br>
     <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
