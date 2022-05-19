@@ -169,7 +169,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   deleteItem(id, event) {
-    console.log("item deleted")
+    console.log('item deleted')
     this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
     this.router.navigate(['/tabs/tab2'])
   }
