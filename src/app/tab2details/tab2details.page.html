@@ -38,7 +38,6 @@
 
 
   <div class="confbutton">
-    <!-- (click)='edit = true' -->
     <ion-button expand="block" (click)="editPage()">Edit</ion-button>
   </div>
 </ion-content>
@@ -60,14 +59,27 @@
     <ion-list>
       <ion-item *ngFor="let day of days">
         <ion-label>{{day.val}}</ion-label>
-          <ion-checkbox *ngIf="day.val == 'Monday'" slot="start" checked="true" ></ion-checkbox>
-          <ion-checkbox *ngIf="day.val != 'Monday'" slot="start" ></ion-checkbox>
+          <ion-checkbox slot="start" checked="true" [(ngModel)]="day.isChecked"></ion-checkbox>
       </ion-item>
     </ion-list>
   </div>
 
-  <div class="confbutton">
+  <div class="dynamicNeeds">
+    <ion-list>
+      <ion-datetime locale="fr-FR" #dateNeed></ion-datetime>
 
+      <!-- <input type="text" placeholder="Add date" #dateNeed> -->
+      <button (click)="addDynamicNeed(dateNeed.value)">Add day</button>
+
+      <ion-item *ngFor="let dyn of addedDynNeeds">
+        <ion-label>{{dyn.needed_on}}</ion-label>
+        <button (click)="deleteDyn()">Delete</button>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+  <div class="confbutton">
       <ion-button expand="block"  (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
     <br>
     <ion-button expand="block" (click)="updateGadget()">Save</ion-button>

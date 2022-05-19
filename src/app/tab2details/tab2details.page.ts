@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { format, utcToZonedTime } from 'date-fns-tz';
+import { parseISO } from 'date-fns';
+
 
 // import { Resolver } from 'dns';
 
@@ -18,11 +21,13 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   edit = false;   // guard between edit page and not
   id: number;
   staticDays: any;
-  dynamicDays: any;
+  dynamicDays: any[] = [];
   inStatic: any;
   daysList = [];
   status;
   statusD;
+  addedDynNeeds: any[] = [];
+  formattedDynNeeds: any[] = [];
 
   private sub: any;
 
@@ -38,8 +43,20 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     { val: 'Saturday', isChecked: false }
   ];
 
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+    });
+
+    this.getGadgets()
+    this.getStaticNeeds()
+    this.getDynamicNeeds()
+
+  }
+
   editPage() {
     this.edit = true;
+    this.addedDynNeeds = this.dynamicDays
   }
 
   // change gadget name
@@ -58,10 +75,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
         //console.log(res);
         //}
       );
-
       console.log(this.days);  // logs days of the week
-
-
 
       for (const x of this.days) {
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -93,40 +107,35 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     this.router.navigate(['/tabs/tab2']);
   }
 
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id'];
-    });
-
+  getGadgets() {
     this.http.get('http://backpack.cvdeede.be/api/gadgets/' + this.id).subscribe(
       res => {
-        // store the name of the gadget in nameOfGadget
-        this.currGadget = res
-        this.nameOfGadget = res['name'];
-        //console.log(this.currGadget);
-      });
+        this.currGadget = res         // Store the name of the gadget in nameOfGadget
+        this.nameOfGadget = res['name']; // Needed to be able to change it in patch
+      })
+  };
 
-
-    // gets static need(day_of_week)
-    // change 0, 1... to sunday, monday...
+  getStaticNeeds() {
     this.http.get('http://backpack.cvdeede.be/api/static_needs?gadget_id=' + this.id).subscribe(
       (data: any) => {
-        data.sort(function (a, b) {
-          return a.day_of_week - b.day_of_week;
-        }
-        );
-
+        // Show data in sorted way (Sunday before Monday for example)
+        data.sort(function (a, b) {return a.day_of_week - b.day_of_week;});
+        // change numerical value (eg. 7) to nominal (eg. Sunday)
         for (const x of data) {
           const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
           x.day_of_week = daysOfWeek[x.day_of_week];
           this.staticDays = data;
+          // Set checkbox on checked if a static need on that specific day
+          for (const day of this.days) {
+            if (x.day_of_week == day.val) {
+              day.isChecked = true
+            }
+          }
         }
-
-        console.log(this.staticDays);
       });
+  }
 
-
-
+  getDynamicNeeds() {
     // gets dynamic need
     // change 0, 1... to sunday, monday...
     this.http.get('http://backpack.cvdeede.be/api/dynamic_needs?gadget_id=' + this.id).subscribe(
@@ -142,9 +151,11 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
           y.needed_on = dt + ' ' + monthM + ' ' + year;
           this.dynamicDays = data;
         }
-        console.log(this.dynamicDays);
+        this.formattedDynNeeds = data;
+        //console.log(this.dynamicDays);
       });
   }
+
 
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -155,5 +166,46 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
     this.router.navigate(['/tabs/tab2'])
   }
+
+  deleteDyn(i) {
+    this.addedDynNeeds.splice(i, 1)
+  }
+
+  addDynamicNeed(neededOn: string) {
+    console.log(Date.now())
+
+    // remove timezone and change to .000Z format
+    const formatted = neededOn.slice(0, -6).concat('.000Z')
+    this.addedDynNeeds.push({ 'id': 1, 'gadget_id': 4, 'needed_on': formatted })
+
+    for (const y of this.addedDynNeeds) {
+      const date = new Date(y.needed_on);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      let dt = date.getDate();
+      const theMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      const monthM = theMonths[month - 1];
+      y.needed_on = dt + ' ' + monthM + ' ' + year;
+      this.formattedDynNeeds = this.addedDynNeeds;
+    }
+
+  }
+
+  formattedDate() {
+            // convert needed_on
+        for (const y of this.addedDynNeeds) {
+          const date = new Date(y.needed_on);
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1;
+          let dt = date.getDate();
+          const theMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+          const monthM = theMonths[month - 1];
+          y.needed_on = dt + ' ' + monthM + ' ' + year;
+          this.formattedDynNeeds = this.addedDynNeeds;
+        }
+
+    //console.log(formatted)
+  }
+
 }
 
