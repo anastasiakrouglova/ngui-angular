@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { format, utcToZonedTime } from 'date-fns-tz';
-import { parseISO } from 'date-fns';
+//import { format, utcToZonedTime } from 'date-fns-tz';
+//import { parseISO } from 'date-fns';
 
 
 // import { Resolver } from 'dns';
@@ -28,6 +28,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   statusD;
   addedDynNeeds: any[] = [];
   formattedDynNeeds: any[] = [];
+  dynDays: any[] = [];
 
   private sub: any;
 
@@ -67,6 +68,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   //     });
   // }
 
+  // anytime a gadget is edited,  desired static days must be checked
   updateGadget() {
     // Change the name of the gadget
     this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id, { name: this.gadgetName }).subscribe();
@@ -98,8 +100,8 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
         }
       )
 
-    // change the dynamic needs
-    // TODO
+    //method to make changes to dynamic needs
+    this.dynamicPatch()
 
     this.router.navigate(['/tabs/tab2']);
   }
@@ -152,6 +154,15 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
       });
   }
 
+  // method to get difference between dynamic need in backend and addDynNeeds
+  // called in dynamicPatch
+  getDifference(array1, array2) {
+    return array1.filter(object1 => {
+      return !array2.some(object2 => {
+        return object1.id === object2.id;
+      });
+    });
+  }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -170,7 +181,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   addDynamicNeed(neededOn: string) {
     // remove timezone and change to .000Z format
     const formatted = neededOn.slice(0, -6).concat('.000Z')
-    this.addedDynNeeds.push({ 'id': 1, 'gadget_id': 4, 'needed_on': formatted })
+    this.addedDynNeeds.push({ 'id': 1, 'gadget_id': this.id, 'needed_on': formatted })
     // Format and put it in the formatted dynamic needs
     this.formattedDate(this.addedDynNeeds)
   }
@@ -189,5 +200,41 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
         }
   }
 
+  dynamicPatch() {
+    console.log(this.addedDynNeeds)
+    console.log(this.formattedDynNeeds)
+
+    for (const x of this.addedDynNeeds) {
+      if (x.id === 1) {
+        this.dynDays.push(x)
+      }
+    }
+    console.log(this.dynDays)
+
+    for (const z of this.dynDays) {
+      const fromDate = new Date(z.needed_on);
+      const toIso = fromDate.toISOString();
+      this.http.post('http://backpack.cvdeede.be/api/dynamic_needs/', {gadget_id: this.id, needed_on: toIso}).subscribe(
+        res3 => {
+          console.log(res3)
+        }
+      )
+    }
+
+    this.http.get('http://backpack.cvdeede.be/api/dynamic_needs/?gadget_id=' + this.id).subscribe(
+      (data: any) => {
+        console.log(data)
+        const dataDel = this.getDifference(data, this.addedDynNeeds)
+        console.log(dataDel);
+
+        for (const v of dataDel) {
+          console.log(v)
+          this.http.delete('http://backpack.cvdeede.be/api/dynamic_needs/' + v.id).subscribe(() => this.statusD = 'Delete successful');
+        }
+      })
+
+  }
+
 }
+
 

@@ -51,7 +51,9 @@
 <ion-content *ngIf="edit == true">
   <div align="center">
     <!-- Rename Gadget -->
-    <h3><ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input></h3>
+    <h3>
+      <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input>
+    </h3>
   </div>
   <br>
 
@@ -59,7 +61,7 @@
     <ion-list>
       <ion-item *ngFor="let day of days">
         <ion-label>{{day.val}}</ion-label>
-          <ion-checkbox slot="start" checked="true" [(ngModel)]="day.isChecked"></ion-checkbox>
+        <ion-checkbox slot="start" checked="true" [(ngModel)]="day.isChecked"></ion-checkbox>
       </ion-item>
     </ion-list>
   </div>
@@ -80,9 +82,12 @@
   </div>
 
   <div class="confbutton">
-      <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
+    <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
     <br>
     <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
+
+    <ion-button expand="block" (click)="dynamicPatch()">DYNAMIC PATCH</ion-button>
+
   </div>
 
   <div class="confbutton">
