@@ -60,31 +60,24 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   // change gadget name
-  updateGadgetName() {
-    this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
-      { name: this.currGadget.name }).subscribe((res: any) => {
-        console.log(res);
-      });
-  }
+  // updateGadgetName() {
+  //   this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
+  //     { name: this.currGadget.name }).subscribe((res: any) => {
+  //       console.log(res);
+  //     });
+  // }
 
   updateGadget() {
     // Change the name of the gadget
-    this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
-      { name: this.gadgetName }).subscribe(
-        //(res: any) => {
-        //console.log(res);
-        //}
-      );
-      console.log(this.days);  // logs days of the week
+    this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id, { name: this.gadgetName }).subscribe();
 
+    // Change the static needs
       for (const x of this.days) {
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         if (x.isChecked===true) {
           this.daysList.push(daysOfWeek.indexOf(x.val))
         }
       }
-
-      console.log(this.daysList);
 
       this.http.get('http://backpack.cvdeede.be/api/static_needs?gadget_id=' + this.id).subscribe(
         res => {
@@ -104,6 +97,10 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
           }
         }
       )
+
+    // change the dynamic needs
+    // TODO
+
     this.router.navigate(['/tabs/tab2']);
   }
 
@@ -152,7 +149,6 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
           this.dynamicDays = data;
         }
         this.formattedDynNeeds = data;
-        //console.log(this.dynamicDays);
       });
   }
 
@@ -172,28 +168,16 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   addDynamicNeed(neededOn: string) {
-    console.log(Date.now())
-
     // remove timezone and change to .000Z format
     const formatted = neededOn.slice(0, -6).concat('.000Z')
     this.addedDynNeeds.push({ 'id': 1, 'gadget_id': 4, 'needed_on': formatted })
-
-    for (const y of this.addedDynNeeds) {
-      const date = new Date(y.needed_on);
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
-      let dt = date.getDate();
-      const theMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-      const monthM = theMonths[month - 1];
-      y.needed_on = dt + ' ' + monthM + ' ' + year;
-      this.formattedDynNeeds = this.addedDynNeeds;
-    }
-
+    // Format and put it in the formatted dynamic needs
+    this.formattedDate(this.addedDynNeeds)
   }
 
-  formattedDate() {
-            // convert needed_on
-        for (const y of this.addedDynNeeds) {
+  formattedDate(data) {
+        // convert needed_on
+        for (const y of data) {
           const date = new Date(y.needed_on);
           const year = date.getFullYear();
           const month = date.getMonth() + 1;
@@ -201,10 +185,8 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
           const theMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
           const monthM = theMonths[month - 1];
           y.needed_on = dt + ' ' + monthM + ' ' + year;
-          this.formattedDynNeeds = this.addedDynNeeds;
+          this.formattedDynNeeds = data;
         }
-
-    //console.log(formatted)
   }
 
 }

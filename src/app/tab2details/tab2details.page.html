@@ -71,16 +71,16 @@
       <!-- <input type="text" placeholder="Add date" #dateNeed> -->
       <button (click)="addDynamicNeed(dateNeed.value)">Add day</button>
 
-      <ion-item *ngFor="let dyn of addedDynNeeds">
+      <ion-item *ngFor="let dyn of addedDynNeeds; let i = index">
         <ion-label>{{dyn.needed_on}}</ion-label>
-        <button (click)="deleteDyn()">Delete</button>
+        <button (click)="deleteDyn(i)">Delete</button>
       </ion-item>
 
     </ion-list>
   </div>
 
   <div class="confbutton">
-      <ion-button expand="block"  (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
+      <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
     <br>
     <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
   </div>
