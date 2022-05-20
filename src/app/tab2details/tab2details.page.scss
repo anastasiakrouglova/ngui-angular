@@ -2,9 +2,46 @@
   font-size: 50px;
   margin: 3%;
   color: rgb(201, 179, 222);
+
+}
+
+ion-content {
+  background-color: #EFF1FA;
 }
 
 .confbutton{
   margin-right: 5%;
   margin-bottom: 15%;
+}
+
+
+.name-container {
+  margin-top: 2rem;
+}
+
+.title-detail {
+  font-weight: 600;
+  margin-left: 1rem;
+  margin-top: 3rem;
+}
+
+
+.ul-day-of-week {
+  display: flex;
+  text-decoration: none;
+  flex-direction: row;
+  width: 100%;
+  margin-left: 1rem;
+}
+
+
+.day-of-week {
+  background-color: #5967E5;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  color: white;
+  margin-right: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-size: 0.9rem;
 }

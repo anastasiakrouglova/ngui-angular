@@ -10,25 +10,24 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="edit == false">
-  <div align="center">
+  <div class="name-container" align="center">
     <!-- <h3>{{ id }}</h3> -->
+    <img src="./assets/0.svg" alt="icon">
     <h3>{{ nameOfGadget }}</h3>
   </div>
 
 
   <!-- Displays static needs -->
   <div class="staticNeeds">
-    <p><strong>Needs on regular basis</strong></p>
-    <ion-list>
-      <ion-item *ngFor="let day of staticDays">
-        <ion-label>{{day.day_of_week}}</ion-label>
-      </ion-item>
-    </ion-list>
+    <p class="title-detail">Needs on a regular basis</p>
+    <div class="ul-day-of-week">
+        <p *ngFor="let day of staticDays" class="day-of-week">{{day.day_of_week}}</p>
+    </div>
   </div>
 
   <!-- Displays static needs -->
   <div class="dynamicNeeds">
-    <p><strong>Needs on specific days</strong></p>
+    <p class="title-detail">Needs on specific days</p>
     <ion-list>
       <ion-item *ngFor="let day of dynamicDays">
         <ion-label>{{day.needed_on}}</ion-label>
@@ -49,7 +48,7 @@
 
 <!-- EDIT GADGET -->
 <ion-content *ngIf="edit == true">
-  <div align="center">
+  <div>
     <!-- Rename Gadget -->
     <h3>
       <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input>
