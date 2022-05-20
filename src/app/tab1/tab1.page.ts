@@ -180,6 +180,7 @@ export class Tab1Page implements OnInit {
   dyn_gadgets: any
   curr_day: any
   missing: any
+  needed: any
 
   getDate() {
     var d = new Date();
@@ -199,7 +200,7 @@ export class Tab1Page implements OnInit {
     this.getDate();
     this.getStaticGadgets();
     this.getDynamicGadgets();
-
+    this.getNeeded();
   }
 
   getStaticGadgets() {
@@ -232,43 +233,55 @@ export class Tab1Page implements OnInit {
 
   progress() {
     if (this.getMissingAmount() != undefined || this.getTotalAmount() != undefined ) {
-      const deling = this.getMissingAmount() / this.getTotalAmount()
-      console.log(deling)
-
-      return deling
+      return this.getMissingAmount() / this.getTotalAmount()
     }
 
   }
 
+  getNeeded() {
+    this.http.get('http://backpack.cvdeede.be/api/needed')
+    .subscribe(
+      source => {
+        //const dyn_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
+        //this.dynamic_gadgets_listID = dyn_data
+        this.needed = source
+      }
+    )
+  }
+
   getTotalAmount() {
-    if (this.gadgets != null) {
-      const list = []
+    if (this.needed != undefined) {
+      return this.needed.length
+    }
+
+    //if (this.needed != undefined) {
+    //  const list = []
 
       // push all static needs of today
-      for (let i = 0; i < this.stat_gadgets.length; i++) {
-        if (this.stat_gadgets[i].day_of_week == this.curr_day) {
-          list.push(i)
-        }
-      }
+      // for (let i = 0; i < this.stat_gadgets.length; i++) {
+      //   if (this.stat_gadgets[i].day_of_week == this.curr_day) {
+      //     list.push(i)
+      //   }
+      // }
 
-      var today = new Date();
-      var formattedToday = this.WithoutTime(today).toDateString()
+      // var today = new Date();
+      // var formattedToday = this.WithoutTime(today).toDateString()
 
-      // push all dynamic needs of today
-      if (this.dyn_gadgets != undefined) {
-      for (let i = 0; i < this.dyn_gadgets.length; i++) {
-        var missingD = new Date(this.dyn_gadgets[i].needed_on)
-        var formattedMissingD = this.WithoutTime(missingD).toDateString()
+      // // push all dynamic needs of today
+      // if (this.dyn_gadgets != undefined) {
+      // for (let i = 0; i < this.dyn_gadgets.length; i++) {
+      //   var missingD = new Date(this.dyn_gadgets[i].needed_on)
+      //   var formattedMissingD = this.WithoutTime(missingD).toDateString()
 
-        if (formattedMissingD == formattedToday) {
-           list.push(i)
-        }
-      }
+      //   if (formattedMissingD == formattedToday) {
+      //      list.push(i)
+      //   }
+      // }
 
-    }
+    //}
 
-      return list.length
-    }
+     // return list.length
+    //}
 
   }
 
@@ -286,4 +299,11 @@ export class Tab1Page implements OnInit {
       }
     )
   }
+
+
+  missingData(data) {
+    console.log(data.title)
+    return true
+  }
+
 }

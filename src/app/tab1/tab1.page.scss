@@ -10,11 +10,12 @@ ion-datetime{
 
 
 ion-progress-bar{
- width: 80%;
+ width: 95%;
  margin: 0 auto;
- margin-top: 2rem;
- padding: 0.3rem;
+ padding: 0.4rem;
  color: #5967E5;
+ border-radius: 2rem;
+ margin-bottom: 2rem;
 }
 
 .content-container{
@@ -79,4 +80,21 @@ ion-title{
   background-color: #EFF1FA;
   border-radius: 0.5rem;
   font-weight: 600;
+}
+
+.progress-text {
+  padding-top: 2rem;
+  padding-left: 1rem;
+  font-weight: 600;
+}
+
+.my-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.my-title-light {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.2
 }

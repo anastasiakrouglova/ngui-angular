@@ -6,17 +6,23 @@
       <p>Don't forget {{miss.name}}</p>
     </div>
 
-  <ion-text>{{getMissingAmount()}}/{{getTotalAmount()}} gadgets in backpack</ion-text>
+  <p class="progress-text">{{getMissingAmount()}}/{{getTotalAmount()}} gadgets in backpack</p>
   <ion-progress-bar class="progress-bar" color="primary" [value]="progress()"></ion-progress-bar>
 
+  <h2>Calendar</h2>
   <!-- https://docs.mobiscroll.com/angular/eventcalendar -->
   <mbsc-eventcalendar [eventContentTemplate]="contentTemplate" [data]="myEvents" [options]="eventSettings" class="md-custom-event" (onPageLoading)="onPageLoading($event)"></mbsc-eventcalendar>
 
 <ng-template #contentTemplate let-data>
-  <div class="md-custom-event-cont">
+  <div *ngIf="missingData(data)" class="md-custom-event-cont">
       <img class="md-custom-event-img" [src]="getGadget(data.id).img" />
-      <div class="my-title">{{data.title}}</div>
+      <div class="my-title-light">{{data.title}}</div>
       <!-- <div class="mbsc-custom-event-name">{{getGadget(data.original.icon).name}}</div> -->
+  </div>
+
+  <div *ngIf="missingData(data) == false" class="md-custom-event-cont">
+    <img class="md-custom-event-img" [src]="getGadget(data.id).img" />
+    <div class="my-title">{{data.title}}</div>
   </div>
 </ng-template>
 </div>
