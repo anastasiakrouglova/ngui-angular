@@ -212,7 +212,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     console.log(this.dynDays)
 
     for (const z of this.dynDays) {
-      const fromDate = new Date(z.needed_on);
+      const fromDate = new Date(z.needed_on +' 11:00:00');
       const toIso = fromDate.toISOString();
       this.http.post('http://backpack.cvdeede.be/api/dynamic_needs/', {gadget_id: this.id, needed_on: toIso}).subscribe(
         res3 => {
