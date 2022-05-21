@@ -17,14 +17,6 @@ const routes: Routes = [
     //   special: DataResolverService
     // },
     loadChildren: () => import('./tab2details/tab2details.module').then( m => m.Tab2detailsPageModule)
-  },
-  {
-    path: 'tab2edit',
-    loadChildren: () => import('./tab2edit/tab2edit.module').then( m => m.Tab2editPageModule)
-  },
-  {
-    path: 'tabs/edit/:id',
-    loadChildren: () => import('./tab2edit/tab2edit.module').then( m => m.Tab2editPageModule)
   }
 
 
