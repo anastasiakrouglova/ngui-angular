@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="edit == false">
+<ion-content [fullscreen]="true">
 <div class="bg" >
   <div class="name-container" align="center">
     <!-- <h3>{{ id }}</h3> -->
@@ -29,14 +29,31 @@
   <!-- Displays static needs -->
   <div class="dynamicNeeds">
     <h3 class="title-detail">Needs on specific days</h3>
-    <ul class="ul-day-of-week dynamic-cont">
+
+    <ion-datetime  *ngIf="edit == true" locale="fr-FR" #dateNeed></ion-datetime>
+    <button (click)="addDynamicNeed(dateNeed.value)">Add day</button>
+
+    <ul *ngIf="edit == false" class="ul-day-of-week dynamic-cont">
       <li class="day-of-week dynamic-day" *ngFor="let day of dynamicDays">{{day.needed_on}}</li>
     </ul>
+
+    <ul *ngIf="edit == true" class="ul-day-of-week dynamic-cont">
+      <li class="day-of-week dynamic-day" *ngFor="let dyn of addedDynNeeds; let i = index">
+       <p>{{dyn.needed_on}}</p>
+       <button (click)="deleteDyn(i)">Delete</button>
+      </li>
+    </ul>
+
+    <button *ngIf="edit == false" expand="block" (click)="editPage()">Edit</button>
   </div>
 
 
   <div class="confbutton">
-    <ion-button expand="block" (click)="editPage()">Edit</ion-button>
+    <div class="confbutton">
+      <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
+      <br>
+      <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
+    </div>
   </div>
 </div>
 </ion-content>
@@ -45,11 +62,10 @@
 
 
 
-<!-- EDIT GADGET -->
+<!-- EDIT GADGET
 <ion-content [fullscreen]="true" *ngIf="edit == true">
 <div class="bg" >
   <div>
-    <!-- Rename Gadget -->
     <h3>
       <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input>
     </h3>
@@ -69,7 +85,6 @@
     <ion-list>
       <ion-datetime locale="fr-FR" #dateNeed></ion-datetime>
 
-      <!-- <input type="text" placeholder="Add date" #dateNeed> -->
       <button (click)="addDynamicNeed(dateNeed.value)">Add day</button>
 
       <ion-item *ngFor="let dyn of addedDynNeeds; let i = index">
@@ -90,4 +105,4 @@
 
   </div>
 </div>
-</ion-content>
+</ion-content> -->
