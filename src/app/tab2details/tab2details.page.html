@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="edit == false">
+<body class="bg" *ngIf="edit == false">
   <div class="name-container" align="center">
     <!-- <h3>{{ id }}</h3> -->
     <img src="./assets/0.svg" alt="icon">
@@ -37,7 +37,7 @@
   <div class="confbutton">
     <ion-button expand="block" (click)="editPage()">Edit</ion-button>
   </div>
-</ion-content>
+</body>
 
 
 
@@ -45,7 +45,7 @@
 
 
 <!-- EDIT GADGET -->
-<ion-content *ngIf="edit == true">
+<body class="bg" *ngIf="edit == true">
   <div>
     <!-- Rename Gadget -->
     <h3>
@@ -87,4 +87,4 @@
   <div class="confbutton">
 
   </div>
-</ion-content>
+</body>

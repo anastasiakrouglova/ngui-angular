@@ -16,7 +16,12 @@ ion-content {
 
 
 .name-container {
+  margin: 0 auto;
   margin-top: 2rem;
+  background-color: white;
+  width: 20rem;
+  padding: 2rem 0rem 1rem 0rem;
+  border-radius: 1rem
 }
 
 .title-detail {
@@ -53,4 +58,9 @@ ion-content {
 
 .dynamic-day {
   flex-wrap: wrap;
+}
+
+.bg {
+  padding-top: 4rem;
+  background-color: #EFF1FA;
 }
