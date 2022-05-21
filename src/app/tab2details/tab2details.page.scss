@@ -23,6 +23,7 @@ ion-content {
   font-weight: 600;
   margin-left: 1rem;
   margin-top: 3rem;
+  font-size: 1.1rem;
 }
 
 
@@ -31,7 +32,9 @@ ion-content {
   text-decoration: none;
   flex-direction: row;
   width: 100%;
-  margin-left: 1rem;
+  margin-left: -1rem;
+  flex-wrap: wrap;
+
 }
 
 
@@ -44,4 +47,10 @@ ion-content {
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+
+.dynamic-day {
+  flex-wrap: wrap;
 }

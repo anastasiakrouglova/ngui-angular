@@ -19,20 +19,18 @@
 
   <!-- Displays static needs -->
   <div class="staticNeeds">
-    <p class="title-detail">Needs on a regular basis</p>
-    <div class="ul-day-of-week">
-        <p *ngFor="let day of staticDays" class="day-of-week">{{day.day_of_week}}</p>
-    </div>
+    <h3 class="title-detail">Needs on a regular basis</h3>
+    <ul class="ul-day-of-week">
+        <li *ngFor="let day of staticDays" class="day-of-week">{{day.day_of_week}}</li>
+    </ul>
   </div>
 
   <!-- Displays static needs -->
   <div class="dynamicNeeds">
-    <p class="title-detail">Needs on specific days</p>
-    <ion-list>
-      <ion-item *ngFor="let day of dynamicDays">
-        <ion-label>{{day.needed_on}}</ion-label>
-      </ion-item>
-    </ion-list>
+    <h3 class="title-detail">Needs on specific days</h3>
+    <ul class="ul-day-of-week dynamic-cont">
+      <li class="day-of-week dynamic-day" *ngFor="let day of dynamicDays">{{day.needed_on}}</li>
+    </ul>
   </div>
 
 
