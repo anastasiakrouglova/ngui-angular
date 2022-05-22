@@ -18,7 +18,8 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   gadgetName;     //holds the name inputed
   nameOfGadget = '';    // holds name of gadget, solved this dirty way because error otherwise
   currGadget: any;  // holds the whole information of the clicked gadget
-  edit = false;   // guard between edit page and not
+  editname = false;   // guard between edit page and not
+  edit = false;
   id: number;
   staticDays: any;
   dynamicDays: any[] = [];
@@ -56,7 +57,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   editPage() {
-    this.edit = true;
+    this.editname = true;
     this.addedDynNeeds = this.dynamicDays
   }
 
@@ -175,7 +176,8 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   deleteDyn(i) {
-    this.addedDynNeeds.splice(i, 1)
+    this.dynamicDays.splice(i, 1)
+    //this.addedDynNeeds.splice(i, 1)
   }
 
   addDynamicNeed(neededOn: string) {

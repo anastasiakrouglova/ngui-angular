@@ -11,10 +11,19 @@
 
 <ion-content [fullscreen]="true">
 <div class="bg" >
-  <div class="name-container" align="center">
-    <!-- <h3>{{ id }}</h3> -->
+
+  <!-- EDIT NAME -->
+  <div *ngIf="editname == false" class="name-container" align="center">
     <img src="./assets/0.svg" alt="icon">
     <h3>{{ nameOfGadget }}</h3>
+        <button *ngIf="editname == false" expand="block" (click)="editPage()">Edit</button>
+  </div>
+
+  <div *ngIf="editname == true" class="bg" class="name-container">
+    <h3 class="edit-name">
+      <img src="./assets/0.svg" alt="icon">
+      <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input>
+    </h3>
   </div>
 
 
@@ -31,20 +40,25 @@
     <h3 class="title-detail">Needs on specific days</h3>
 
     <ion-datetime  *ngIf="edit == true" locale="fr-FR" #dateNeed></ion-datetime>
-    <button (click)="addDynamicNeed(dateNeed.value)">Add day</button>
 
-    <ul *ngIf="edit == false" class="ul-day-of-week dynamic-cont">
+
+    <!-- <ul *ngIf="edit == false" class="ul-day-of-week dynamic-cont">
       <li class="day-of-week dynamic-day" *ngFor="let day of dynamicDays">{{day.needed_on}}</li>
-    </ul>
+    </ul> -->
 
-    <ul *ngIf="edit == true" class="ul-day-of-week dynamic-cont">
-      <li class="day-of-week dynamic-day" *ngFor="let dyn of addedDynNeeds; let i = index">
+    <ul class="ul-day-of-week dynamic-cont">
+      <!-- addedDynNeeds -->
+      <li class="day-of-week dynamic-day" *ngFor="let dyn of dynamicDays; let i = index">
        <p>{{dyn.needed_on}}</p>
-       <button (click)="deleteDyn(i)">Delete</button>
+        <button class="delete-btn" (click)="deleteDyn(i)">
+         <img class="delete-btn" src="../../assets/delete.svg" alt="delete" width="13">
+        </button>
       </li>
+      <button class="add-dyn-day" (click)="addDynamicNeed(dateNeed.value)">+ add a static day</button>
     </ul>
 
-    <button *ngIf="edit == false" expand="block" (click)="editPage()">Edit</button>
+
+
   </div>
 
 
@@ -52,7 +66,8 @@
     <div class="confbutton">
       <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
       <br>
-      <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
+      <ion-button class="save-btn" disabled *ngIf="editname == false" expand="block" (click)="updateGadget()">Save</ion-button>
+      <ion-button class="save-btn" *ngIf="editname == true" expand="block" (click)="updateGadget()">Save</ion-button>
     </div>
   </div>
 </div>
