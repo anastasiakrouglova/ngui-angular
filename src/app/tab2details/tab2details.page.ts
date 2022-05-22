@@ -20,6 +20,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   iconOfGadget = '0';
   currGadget: any;  // holds the whole information of the clicked gadget
   editname = false;   // guard between edit page and not
+  editday = true;
   edit = false;
   id: number;
   staticDays: any;
@@ -182,11 +183,14 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     //this.addedDynNeeds.splice(i, 1)
   }
 
-  addDynamicNeed(neededOn: string) {
-    // remove timezone and change to .000Z format
+  addDynamicNeed(neededOn) {
+    this.editday == true
+    console.log(neededOn)
+    this.addedDynNeeds = this.dynamicDays
+    // // remove timezone and change to .000Z format
     const formatted = neededOn.slice(0, -6).concat('.000Z')
     this.addedDynNeeds.push({ 'id': 1, 'gadget_id': this.id, 'needed_on': formatted })
-    // Format and put it in the formatted dynamic needs
+    // // Format and put it in the formatted dynamic needs
     this.formattedDate(this.addedDynNeeds)
   }
 

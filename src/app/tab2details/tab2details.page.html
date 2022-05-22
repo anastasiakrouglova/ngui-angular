@@ -65,7 +65,7 @@
   <div class="dynamicNeeds">
     <h3 class="title-detail">Needs on specific days</h3>
 
-    <ion-datetime  *ngIf="edit == true" locale="fr-FR" #dateNeed></ion-datetime>
+    <ion-datetime locale="fr-FR" #dateNeed></ion-datetime>
 
 
     <!-- <ul *ngIf="edit == false" class="ul-day-of-week dynamic-cont">
@@ -80,7 +80,7 @@
          <img class="delete-btn" src="../../assets/delete.svg" alt="delete" width="13">
         </button>
       </li>
-      <button class="add-dyn-day" (click)="addDynamicNeed(dateNeed.value)">+ add a static day</button>
+      <button class="add-dyn-day" (click)="addDynamicNeed(dateNeed.value)">+ add a day</button>
     </ul>
 
 
@@ -98,7 +98,6 @@
   </div>
 </div>
 </ion-content>
-
 
 
 

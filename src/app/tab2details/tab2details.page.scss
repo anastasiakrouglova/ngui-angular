@@ -198,22 +198,22 @@ ion-content {
   white-space: nowrap;
   width: 1px;
   &:checked + .checkbox-tile {
-    border-color: #2260ff;
+    border-color: #5967E5;
     box-shadow: 0 5px 10px rgba(#000, 0.1);
-    color: #2260ff;
+    color: #5967E5;
     &:before {
       transform: scale(1);
       opacity: 1;
-      background-color: #2260ff;
-      border-color: #2260ff;
+      background-color: #5967E5;
+      border-color: #5967E5;
     }
     .checkbox-icon,
     .checkbox-label {
-      color: #2260ff;
+      color: #5967E5;
     }
   }
   &:focus + .checkbox-tile {
-    border-color: #2260ff;
+    border-color: #5967E5;
     box-shadow: 0 5px 10px rgba(#000, 0.1), 0 0 0 4px #b5c9fc;
     &:before {
       transform: scale(1);
@@ -255,7 +255,7 @@ ion-content {
     background-position: 50% 50%;
   }
   &:hover {
-    border-color: #2260ff;
+    border-color: #5967E5;
     &:before {
       transform: scale(1);
       opacity: 1;
