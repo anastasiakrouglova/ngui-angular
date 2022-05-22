@@ -48,23 +48,24 @@ export class Tab1Page implements OnInit {
       for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < data[i].static_needs.length; j++) {
           events.push({
-            start: data[i].static_needs[j].needed_on,
+            start: data[i].static_needs[j].day_of_week,
             allDay: true,
             title: data[i].name,
             id:  data[i].icon,
             color: "#ff6d42",
-            img: './assets/1.svg'
+            img: './assets/1.svg',
+            recurring: 'FREQ=WEEKLY;UNTIL=2022-07-01;BYDAY='+this.getDay(data[i].static_needs[j].day_of_week)
           })
         }
         // Dynamic needs are blue
         for (let k = 0; k < data[i].dynamic_needs.length; k++) {
           events.push({
-            start: "2022-05-06T07:00:00.000Z",
+            //start: "2022-05-06T07:00:00.000Z",
+            start: "data[i].dynamic_needs[j].needed_on",
             allDay: true,
             title: data[i].name,
             id:  data[i].icon,
             img: './assets/1.svg',
-            recurring: 'FREQ=WEEKLY;UNTIL=2022-07-01;BYDAY='+this.getDay(data[i].dynamic_needs[k].day_of_week)
           });
         }
       }

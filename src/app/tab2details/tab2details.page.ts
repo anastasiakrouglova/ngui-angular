@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 export class Tab2detailsPage implements OnInit, OnDestroy {
   gadgetName;     //holds the name inputed
   nameOfGadget = '';    // holds name of gadget, solved this dirty way because error otherwise
+  iconOfGadget = '0';
   currGadget: any;  // holds the whole information of the clicked gadget
   editname = false;   // guard between edit page and not
   edit = false;
@@ -112,6 +113,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
       res => {
         this.currGadget = res         // Store the name of the gadget in nameOfGadget
         this.nameOfGadget = res['name']; // Needed to be able to change it in patch
+        this.iconOfGadget = res['icon'];
       })
   };
 

@@ -14,15 +14,16 @@
 
   <!-- EDIT NAME -->
   <div *ngIf="editname == false" class="name-container" align="center">
-    <img src="./assets/0.svg" alt="icon">
+    <img src="./assets/{{iconOfGadget}}.svg" alt="icon">
     <h3>{{ nameOfGadget }}</h3>
         <button *ngIf="editname == false" expand="block" (click)="editPage()">Edit</button>
   </div>
 
   <div *ngIf="editname == true" class="bg" class="name-container">
-    <h3 class="edit-name">
-      <img src="./assets/0.svg" alt="icon">
-      <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input>
+    <h3 class="edit-name-cont">
+      <img src="./assets/{{iconOfGadget}}.svg" alt="icon" width="30">
+      <input class="edit-name" type="text" placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName">
+      <!-- <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input> -->
     </h3>
   </div>
 
@@ -30,9 +31,34 @@
   <!-- Displays static needs -->
   <div class="staticNeeds">
     <h3 class="title-detail">Needs on a regular basis</h3>
-    <ul class="ul-day-of-week">
+
+    <div class="staticNeeds">
+      <ol class="days-list-container">
+        <li class="days-list-item" *ngFor="let day of days">
+
+
+          <div class="checkbox">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" [(ngModel)]="day.isChecked"/>
+              <span class="checkbox-tile">
+                <span class="checkbox-icon">
+                </span>
+                <span class="checkbox-label">{{day.val}}</span>
+              </span>
+            </label>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+
+
+
+
+
+    <!-- <ul class="ul-day-of-week">
         <li *ngFor="let day of staticDays" class="day-of-week">{{day.day_of_week}}</li>
-    </ul>
+    </ul> -->
   </div>
 
   <!-- Displays static needs -->
