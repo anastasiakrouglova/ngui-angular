@@ -34,6 +34,7 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   dynDays: any[] = [];
 
   private sub: any;
+  popoverController: any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
@@ -157,6 +158,8 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
         this.formattedDynNeeds = data;
       });
   }
+
+
 
   // method to get difference between dynamic need in backend and addDynNeeds
   // called in dynamicPatch

@@ -51,11 +51,6 @@
       </ol>
     </div>
 
-
-
-
-
-
     <!-- <ul class="ul-day-of-week">
         <li *ngFor="let day of staticDays" class="day-of-week">{{day.day_of_week}}</li>
     </ul> -->
@@ -65,8 +60,12 @@
   <div class="dynamicNeeds">
     <h3 class="title-detail">Needs on specific days</h3>
 
-    <ion-datetime locale="fr-FR" #dateNeed></ion-datetime>
-
+    <ion-popover reference="event" side="top" alignment="top" trigger="size-button" reference="event">
+      <ng-template>
+        <ion-datetime locale="fr-FR" #dateNeed></ion-datetime>
+        <ion-button (click)="addDynamicNeed(dateNeed.value)">confirm</ion-button>
+      </ng-template>
+    </ion-popover>
 
     <!-- <ul *ngIf="edit == false" class="ul-day-of-week dynamic-cont">
       <li class="day-of-week dynamic-day" *ngFor="let day of dynamicDays">{{day.needed_on}}</li>
@@ -74,13 +73,14 @@
 
     <ul class="ul-day-of-week dynamic-cont">
       <!-- addedDynNeeds -->
+      <button id="size-button" class="add-dyn-day">+ add a day</button>
       <li class="day-of-week dynamic-day" *ngFor="let dyn of dynamicDays; let i = index">
        <p>{{dyn.needed_on}}</p>
         <button class="delete-btn" (click)="deleteDyn(i)">
          <img class="delete-btn" src="../../assets/delete.svg" alt="delete" width="13">
         </button>
       </li>
-      <button class="add-dyn-day" (click)="addDynamicNeed(dateNeed.value)">+ add a day</button>
+
     </ul>
 
 

@@ -33,7 +33,7 @@ export class Tab1Page implements OnInit {
             return 'FR';
         case 6:
             return 'SA';
-        case 7:
+        case 0:
             return 'SU';
     }
   }
@@ -60,8 +60,8 @@ export class Tab1Page implements OnInit {
         // Dynamic needs are blue
         for (let k = 0; k < data[i].dynamic_needs.length; k++) {
           events.push({
-            //start: "2022-05-06T07:00:00.000Z",
-            start: "data[i].dynamic_needs[j].needed_on",
+            start: data[i].dynamic_needs[k].needed_on,
+            //end: "data[i].dynamic_needs[k].needed_on",
             allDay: true,
             title: data[i].name,
             id:  data[i].icon,
@@ -303,7 +303,7 @@ export class Tab1Page implements OnInit {
 
 
   missingData(data) {
-    console.log(data.title)
+    //console.log(data.title)
     return true
   }
 
