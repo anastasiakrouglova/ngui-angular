@@ -20,8 +20,9 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   iconOfGadget = '0';
   currGadget: any;  // holds the whole information of the clicked gadget
   editname = false;   // guard between edit page and not
-  editday = true;
+  editday = false;
   edit = false;
+  popup = false;
   id: number;
   staticDays: any;
   dynamicDays: any[] = [];
@@ -175,6 +176,10 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  togglePopup() {
+    this.popup = true;
+  }
+
   deleteItem(id, event) {
     console.log('item deleted')
     this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
@@ -247,5 +252,9 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
 }
+
+
+
+
 
 

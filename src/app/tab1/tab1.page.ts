@@ -224,13 +224,26 @@ export class Tab1Page implements OnInit {
     )
   }
 
-  getMissingAmount() {
-    if (this.missing != null) {
-      if (this.getTotalAmount() != undefined) {
-        return this.getTotalAmount() - this.missing.length
-      }
-    }
+  doRefresh(event) {
+    window.location.reload();
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
   }
+
+  getMissingAmount() {
+      if (this.getTotalAmount() != undefined) {
+        if (this.missing != null) {
+          return this.getTotalAmount() - this.missing.length
+
+      } else {
+          return this.getTotalAmount()
+      }
+     }
+    }
 
   progress() {
     if (this.getMissingAmount() != undefined || this.getTotalAmount() != undefined ) {

@@ -1,5 +1,8 @@
 
 <ion-content  [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="content-container">
     <h2>Missing items</h2>
     <div class="missing-container" *ngFor="let miss of missing">
@@ -16,7 +19,7 @@
 <ng-template #contentTemplate let-data>
   <div *ngIf="missingData(data)" class="md-custom-event-cont">
       <img class="md-custom-event-img" [src]="getGadget(data.id).img" />
-      <div class="my-title-light">{{data.title}}</div>
+      <div class="my-title">{{data.title}}</div>
       <!-- <div class="mbsc-custom-event-name">{{getGadget(data.original.icon).name}}</div> -->
   </div>
 
