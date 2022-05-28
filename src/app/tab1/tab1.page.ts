@@ -61,7 +61,6 @@ export class Tab1Page implements OnInit {
         for (let k = 0; k < data[i].dynamic_needs.length; k++) {
           events.push({
             start: data[i].dynamic_needs[k].needed_on,
-            //end: "data[i].dynamic_needs[k].needed_on",
             allDay: true,
             title: data[i].name,
             id:  data[i].icon,
@@ -110,13 +109,11 @@ export class Tab1Page implements OnInit {
       case 1:
         output = {
           img: './assets/1.svg',
-          name: 'French book'
         };
         break;
       case 2:
         output = {
           img: './assets/2.svg',
-          // name:
         };
         break;
       case 3:
@@ -165,7 +162,6 @@ export class Tab1Page implements OnInit {
         };
         break;
     }
-    //console.log(output);
     return output;
   }
 
@@ -176,7 +172,6 @@ export class Tab1Page implements OnInit {
 }
 
   gadgets: any // list that will save and print the data
-
   stat_gadgets: any
   dyn_gadgets: any
   curr_day: any
@@ -217,8 +212,6 @@ export class Tab1Page implements OnInit {
     this.http.get('http://backpack.cvdeede.be/api/dynamic_needs')
     .subscribe(
       source => {
-        //const dyn_data = JSON.parse(JSON.stringify(source)).map(data => data.gadget_id).filter((value, index, self) => self.indexOf(value) === index)
-        //this.dynamic_gadgets_listID = dyn_data
         this.dyn_gadgets = source
       }
     )
@@ -226,10 +219,8 @@ export class Tab1Page implements OnInit {
 
   doRefresh(event) {
     window.location.reload();
-    console.log('Begin async operation');
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       event.target.complete();
     }, 1000);
   }
@@ -267,36 +258,6 @@ export class Tab1Page implements OnInit {
     if (this.needed != undefined) {
       return this.needed.length
     }
-
-    //if (this.needed != undefined) {
-    //  const list = []
-
-      // push all static needs of today
-      // for (let i = 0; i < this.stat_gadgets.length; i++) {
-      //   if (this.stat_gadgets[i].day_of_week == this.curr_day) {
-      //     list.push(i)
-      //   }
-      // }
-
-      // var today = new Date();
-      // var formattedToday = this.WithoutTime(today).toDateString()
-
-      // // push all dynamic needs of today
-      // if (this.dyn_gadgets != undefined) {
-      // for (let i = 0; i < this.dyn_gadgets.length; i++) {
-      //   var missingD = new Date(this.dyn_gadgets[i].needed_on)
-      //   var formattedMissingD = this.WithoutTime(missingD).toDateString()
-
-      //   if (formattedMissingD == formattedToday) {
-      //      list.push(i)
-      //   }
-      // }
-
-    //}
-
-     // return list.length
-    //}
-
   }
 
     WithoutTime(dateTime) {
@@ -316,7 +277,6 @@ export class Tab1Page implements OnInit {
 
 
   missingData(data) {
-    //console.log(data.title)
     return true
   }
 

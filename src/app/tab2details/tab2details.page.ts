@@ -1,12 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Subscription } from 'rxjs/internal/Subscription';
-//import { format, utcToZonedTime } from 'date-fns-tz';
-//import { parseISO } from 'date-fns';
-
-
-// import { Resolver } from 'dns';
 
 @Component({
   selector: 'app-tab2details',
@@ -65,13 +59,6 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
     this.addedDynNeeds = this.dynamicDays
   }
 
-  // change gadget name
-  // updateGadgetName() {
-  //   this.http.patch('http://backpack.cvdeede.be/api/gadgets/' + this.id,
-  //     { name: this.currGadget.name }).subscribe((res: any) => {
-  //       console.log(res);
-  //     });
-  // }
 
   // anytime a gadget is edited,  desired static days must be checked
   updateGadget() {
@@ -88,19 +75,13 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
 
       this.http.get('http://backpack.cvdeede.be/api/static_needs?gadget_id=' + this.id).subscribe(
         res => {
-          console.log(res);
           this.inStatic = res;
-          console.log(this.inStatic)
           for (const x of this.inStatic) {
             this.http.delete('http://backpack.cvdeede.be/api/static_needs/' + x.id).subscribe(() => this.statusD = 'Delete successful');
           }
 
           for (const x of this.daysList) {
-            this.http.post('http://backpack.cvdeede.be/api/static_needs/', {gadget_id: this.id, day_of_week: x}).subscribe(
-              res2 => {
-                console.log(res2)
-              }
-            )
+            this.http.post('http://backpack.cvdeede.be/api/static_needs/', {gadget_id: this.id, day_of_week: x}).subscribe()
           }
         }
       )
@@ -181,24 +162,21 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   deleteItem(id, event) {
-    console.log('item deleted')
     this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
     this.router.navigate(['/tabs/tab2'])
   }
 
   deleteDyn(i) {
     this.dynamicDays.splice(i, 1)
-    //this.addedDynNeeds.splice(i, 1)
   }
 
   addDynamicNeed(neededOn) {
     this.editday == true
-    console.log(neededOn)
     this.addedDynNeeds = this.dynamicDays
-    // // remove timezone and change to .000Z format
+    // remove timezone and change to .000Z format
     const formatted = neededOn.slice(0, -6).concat('.000Z')
     this.addedDynNeeds.push({ 'id': 1, 'gadget_id': this.id, 'needed_on': formatted })
-    // // Format and put it in the formatted dynamic needs
+    // Format and put it in the formatted dynamic needs
     this.formattedDate(this.addedDynNeeds)
   }
 
@@ -217,40 +195,27 @@ export class Tab2detailsPage implements OnInit, OnDestroy {
   }
 
   dynamicPatch() {
-    console.log(this.addedDynNeeds)
-    console.log(this.formattedDynNeeds)
-
     for (const x of this.addedDynNeeds) {
       if (x.id === 1) {
         this.dynDays.push(x)
       }
     }
-    console.log(this.dynDays)
 
     for (const z of this.dynDays) {
       const fromDate = new Date(z.needed_on +' 11:00:00');
       const toIso = fromDate.toISOString();
-      this.http.post('http://backpack.cvdeede.be/api/dynamic_needs/', {gadget_id: this.id, needed_on: toIso}).subscribe(
-        res3 => {
-          console.log(res3)
-        }
-      )
+      this.http.post('http://backpack.cvdeede.be/api/dynamic_needs/', {gadget_id: this.id, needed_on: toIso}).subscribe()
     }
 
     this.http.get('http://backpack.cvdeede.be/api/dynamic_needs/?gadget_id=' + this.id).subscribe(
       (data: any) => {
-        console.log(data)
         const dataDel = this.getDifference(data, this.addedDynNeeds)
-        console.log(dataDel);
 
         for (const v of dataDel) {
-          console.log(v)
           this.http.delete('http://backpack.cvdeede.be/api/dynamic_needs/' + v.id).subscribe(() => this.statusD = 'Delete successful');
         }
       })
-
   }
-
 }
 
 

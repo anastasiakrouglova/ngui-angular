@@ -20,7 +20,6 @@
   <div *ngIf="missingData(data)" class="md-custom-event-cont">
       <img class="md-custom-event-img" [src]="getGadget(data.id).img" />
       <div class="my-title">{{data.title}}</div>
-      <!-- <div class="mbsc-custom-event-name">{{getGadget(data.original.icon).name}}</div> -->
   </div>
 
   <div *ngIf="missingData(data) == false" class="md-custom-event-cont">

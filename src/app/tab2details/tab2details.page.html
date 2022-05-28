@@ -23,7 +23,6 @@
     <h3 class="edit-name-cont">
       <img src="./assets/{{iconOfGadget}}.svg" alt="icon" width="30">
       <input class="edit-name" type="text" placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName">
-      <!-- <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input> -->
     </h3>
   </div>
 
@@ -39,13 +38,8 @@
         </ng-template>
       </ion-popover>
 
-     <!-- <ul *ngIf="edit == false" class="ul-day-of-week dynamic-cont">
-        <li class="day-of-week dynamic-day" *ngFor="let day of dynamicDays">{{day.needed_on}}</li>
-      </ul> -->
-
       <ul class="ul-day-of-week dynamic-cont">
         <!-- addedDynNeeds -->
-
         <li class="day-of-week dynamic-day" *ngFor="let dyn of dynamicDays; let i = index">
          <p>{{dyn.needed_on}}</p>
           <button class="delete-btn" (click)="deleteDyn(i)">
@@ -56,96 +50,35 @@
       </ul>
 
 
-  <!-- Displays static needs -->
-  <div class="staticNeeds">
-    <h3 class="title-detail">Needs on a regular basis</h3>
-
+   <!-- Displays static needs -->
     <div class="staticNeeds">
-      <ol class="days-list-container">
-        <li class="days-list-item" *ngFor="let day of days">
-
-
-          <div class="checkbox">
-            <label class="checkbox-wrapper">
-              <input type="checkbox" class="checkbox-input" [(ngModel)]="day.isChecked"/>
-              <span class="checkbox-tile">
-                <span class="checkbox-icon">
+      <h3 class="title-detail">Needs on a regular basis</h3>
+      <div class="staticNeeds">
+        <ol class="days-list-container">
+          <li class="days-list-item" *ngFor="let day of days">
+            <div class="checkbox">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" [(ngModel)]="day.isChecked"/>
+                <span class="checkbox-tile">
+                  <span class="checkbox-icon">
+                  </span>
+                  <span class="checkbox-label">{{day.val}}</span>
                 </span>
-                <span class="checkbox-label">{{day.val}}</span>
-              </span>
-            </label>
-          </div>
-        </li>
-      </ol>
+              </label>
+            </div>
+          </li>
+        </ol>
+      </div>
     </div>
-
-    <!-- <ul class="ul-day-of-week">
-        <li *ngFor="let day of staticDays" class="day-of-week">{{day.day_of_week}}</li>
-    </ul> -->
-  </div>
-
-
-
-
-
   </div>
 
 
   <div class="confbutton">
     <div class="confbutton">
-      <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
-      <br>
-      <!-- <ion-button class="save-btn" disabled *ngIf="editname == false" expand="block" (click)="updateGadget()">Save</ion-button> -->
-      <ion-button class="save-btn" expand="block" (click)="updateGadget()">Save</ion-button>
+        <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
+        <br>
+        <ion-button class="save-btn" expand="block" (click)="updateGadget()">Save</ion-button>
+      </div>
     </div>
   </div>
-</div>
 </ion-content>
-
-
-
-
-<!-- EDIT GADGET
-<ion-content [fullscreen]="true" *ngIf="edit == true">
-<div class="bg" >
-  <div>
-    <h3>
-      <ion-input type='text' placeholder="{{ nameOfGadget }}" [(ngModel)]="gadgetName"></ion-input>
-    </h3>
-  </div>
-  <br>
-
-  <div class="staticNeeds">
-    <ion-list>
-      <ion-item *ngFor="let day of days">
-        <ion-label>{{day.val}}</ion-label>
-        <ion-checkbox slot="start" checked="true" [(ngModel)]="day.isChecked"></ion-checkbox>
-      </ion-item>
-    </ion-list>
-  </div>
-
-  <div class="dynamicNeeds">
-    <ion-list>
-      <ion-datetime locale="fr-FR" #dateNeed></ion-datetime>
-
-      <button (click)="addDynamicNeed(dateNeed.value)">Add day</button>
-
-      <ion-item *ngFor="let dyn of addedDynNeeds; let i = index">
-        <ion-label>{{dyn.needed_on}}</ion-label>
-        <button (click)="deleteDyn(i)">Delete</button>
-      </ion-item>
-
-    </ion-list>
-  </div>
-
-  <div class="confbutton">
-    <ion-button expand="block" (click)="deleteItem(currGadget.id, $event)" color="danger">Delete Gadget</ion-button>
-    <br>
-    <ion-button expand="block" (click)="updateGadget()">Save</ion-button>
-  </div>
-
-  <div class="confbutton">
-
-  </div>
-</div>
-</ion-content> -->

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-// import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -17,7 +16,6 @@ export class Tab2Page {
   constructor(
     private http: HttpClient,
     private router: Router
-    // private loadCtrl: LoadingController
     ) {}
 
 
@@ -42,11 +40,9 @@ export class Tab2Page {
 
 
   fetchGadgets() {
-    // this.loadCtrl.create({ message: 'Fetching...' }).then(l => l.present());
     this.http.get('http://backpack.cvdeede.be/api/gadgets').subscribe(
       data => {
       this.gadgets = data;
-      // this.loadCtrl.dismiss();
     });
   }
 
@@ -55,16 +51,6 @@ export class Tab2Page {
       data => {
         this.gadgets[id] = data;
       }
-  )
+    )
   }
-
-  // deleteItem(id, event) {
-  //   console.log("item deleted")
-
-  //   this.http.delete('http://backpack.cvdeede.be/api/gadgets/' + id).subscribe(() => this.status = 'Delete successful');
-
-  //   //this.doRefresh(event);
-  //   //window.location.reload();
-  // }
-
 }
